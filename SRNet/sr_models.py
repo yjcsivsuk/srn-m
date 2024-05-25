@@ -302,7 +302,6 @@ class ImageCGPModel(CGPModel):
         return super().forward(X, expr, symbol_constant)
 
     def expr(self, input_vars=None, symbol_constant=False):
-        # TODO: Supporting chain of expression
         # let's adjust input_vars
         kh, kw = self.kernel_size
         input_vars = []
