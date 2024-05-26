@@ -63,38 +63,11 @@ class MLP(nn.Module):
         return loss
 
 
-# PINN模型定义
-class DiffMLP(nn.Module):
-    def __init__(self, in_features, n_layer=5, hidden_size=20) -> None:
-        super().__init__()
-        self.in_features = in_features
-        self.n_layer = n_layer
-        self.hidden_size = hidden_size
-
-        models = [nn.Linear(in_features, hidden_size), nn.ReLU()]
-        for _ in range(n_layer):
-            models.append(nn.Linear(hidden_size, hidden_size))
-            models.append(nn.ReLU())
-        models.append(nn.Linear(hidden_size, 1))
-        self.model = nn.Sequential(*models)
-
-    def forward(self, X):
-        return self.model(X).squeeze()  # 用于移除tensor中最后一个大小为1的维度
-
-
 if __name__ == '__main__':
-
     # 测试mlp模型
-    # mlp_model = MLP(in_features=2,out_features=1)
-    # print(mlp_model)
-    # inputs = torch.randn(3,2)
-    # targets = torch.randn(3,2)
-    # outputs = mlp_model(inputs)
-    # print([outs.shape for outs in outputs])
-
-    # 测试pinn模型
-    pinn_model = DiffMLP(in_features=2)
-    print(pinn_model)
-    inputs= torch.randn(3,2)
-    outputs = pinn_model(inputs)
-    print(outputs.shape)
+    mlp_model = MLP(in_features=2,out_features=1)
+    print(mlp_model)
+    inputs = torch.randn(3,2)
+    targets = torch.randn(3,2)
+    outputs = mlp_model(inputs)
+    print([outs.shape for outs in outputs])
