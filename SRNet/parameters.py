@@ -13,6 +13,7 @@ class BaseSRParameter:
             function_set,
             one_in_one_out  # if True, ignore `n_inputs` and `n_outputs`, treat them both as 1 during inference,
     ) -> None:
+        self.input_channels = None
         if one_in_one_out:
             n_inputs, n_outputs, n_eph = 1, 1, 0
         self.n_inputs = n_inputs

@@ -313,3 +313,41 @@ class ImageCGPModel(CGPModel):
         input_vars = [sp.Symbol(pv) for pv in input_vars]
         pixel_expressions = super().expr(input_vars, symbol_constant)
         return pixel_expressions
+
+
+if __name__ == "__main__":
+    # 测试CGPModel
+    # class Args:
+    #     n_rows = 3
+    #     n_cols = 3
+    #     levels_back = 3
+    #
+    #
+    # X = torch.randn(5, 2)
+    # args = Args()
+    # function_set = ["add", "sub", "mul"]
+    # cgp_params = CGPParameter(1, 1, 1, args=args, function_set=function_set, one_in_one_out=True)
+    # cgp_model = CGPModel(cgp_params)
+    # features = cgp_model.select_features(X, 0)
+    # print(features.shape)
+    # out = cgp_model(X)
+    # print(out.shape)
+    # print(cgp_model.active_paths)
+    # print(cgp_model.expr())
+
+    # 测试ImageCGPModel
+    class Args:
+        n_rows = 3
+        n_cols = 3
+        levels_back = 3
+
+
+    imgs = torch.randn(1, 1, 32, 32)
+    args = Args()
+    imagecgp_params = CGPParameter(1, 1, n_eph=1, args=args)
+    imagecgp_model = ImageCGPModel(imagecgp_params)
+    features = imagecgp_model.select_features(imgs,expr=False,idx=1)
+    print(features.shape)
+    out = imagecgp_model(imgs)
+    print(out.shape)
+    print(imagecgp_model.expr())
