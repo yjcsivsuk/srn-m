@@ -159,7 +159,6 @@ class ModuleEQLNet(BaseSRNet):
     def regularization(self, type="l1"):
         reg = 0.
         for name, param in self.named_parameters():
-
             if 'weight' in name:
                 reg += torch.sum(torch.abs(param))
         return reg

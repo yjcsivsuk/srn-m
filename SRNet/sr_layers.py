@@ -162,7 +162,7 @@ class SRLayer(nn.Module):
             cgp_expr = self.model.sr_model.expr(vars)
             proj: nn.Linear = self.model.proj
         else:
-            cgp_expr = self.model[0].expr(vars)
+            cgp_expr = self.model[0].expr(vars)  #  在测试ModuleEQLNet时，这里报错，model不可下标访问
             proj: nn.Linear = self.model[1]
 
         if not mul_w:
