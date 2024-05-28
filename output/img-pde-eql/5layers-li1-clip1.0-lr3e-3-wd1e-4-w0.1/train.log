@@ -1,0 +1,27 @@
+Hidden Images Shape: torch.Size([1, 16, 5, 5])
+EQL(
+  (layers): ModuleList(
+    (0): Linear(in_features=3, out_features=9, bias=True)
+    (1): Linear(in_features=10, out_features=9, bias=True)
+    (2): Linear(in_features=10, out_features=9, bias=True)
+    (3): Linear(in_features=10, out_features=9, bias=True)
+    (4): Linear(in_features=10, out_features=9, bias=True)
+    (5): Linear(in_features=10, out_features=1, bias=True)
+  )
+)
+Input data shape: torch.Size([400, 3]) U shape: torch.Size([400])
+Train SR:   0%|          | 0/15000 [00:00<?, ?it/s]Train SR:   0%|          | 0/15000 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/luoyuanzhen/projects/SRNet-Modular/train_img_pde.py", line 190, in <module>
+    train_img_pde(args)
+  File "/home/luoyuanzhen/projects/SRNet-Modular/train_img_pde.py", line 131, in train_img_pde
+    U_hat = SR(input_data).squeeze()
+  File "/home/luoyuanzhen/anaconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/luoyuanzhen/projects/SRNet-Modular/SRNet/usr_models.py", line 79, in forward
+    out = self.layers[0](input)
+  File "/home/luoyuanzhen/anaconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/luoyuanzhen/anaconda3/lib/python3.9/site-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: CUDA error: CUBLAS_STATUS_NOT_INITIALIZED when calling `cublasCreate(handle)`

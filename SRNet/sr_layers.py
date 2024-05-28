@@ -2,7 +2,7 @@ import sympy as sp
 import math
 import copy
 from torch import nn
-from parameters import BaseSRParameter
+from parameters import BaseSRParameter, CGPParameter, EQLParameter
 from nn_parser import ExplainedModule
 from sr_models import BaseSRModel, ImageCGPModel
 from usr_models import ImageEQL, EQLPDE
@@ -82,23 +82,21 @@ class SRLayer(nn.Module):
         self.sr_param.input_channels = C_in
         self.sr_param.n_outputs = C_out
 
-        # if isinstance(self.sr_param, CGPParameter):
-        #     self.sr_class = ImageCGPModel
-        # elif isinstance(self.sr_param, GPParameter):
-        #     self.sr_class = ImageGPModel
-        # elif isinstance(self.sr_param, EQLParameter):
-        #     if self.sr_class != EQLPDE:
-        #         self.sr_class = ImageEQL
-        # else:
-        #     raise ValueError(f"Not implement image model for {self.sr_param.__class__}")
-
-        if str(self.sr_param.__class__) == "<class 'SRNet.parameters.CGPParameter'>":
+        if isinstance(self.sr_param, CGPParameter):
             self.sr_class = ImageCGPModel
-        elif str(self.sr_param.__class__) == "<class 'SRNet.parameters.EQLParameter'>":
+        elif isinstance(self.sr_param, EQLParameter):
             if self.sr_class != EQLPDE:
                 self.sr_class = ImageEQL
         else:
             raise ValueError(f"Not implement image model for {self.sr_param.__class__}")
+
+        # if str(self.sr_param.__class__) == "<class 'SRNet.parameters.CGPParameter'>":
+        #     self.sr_class = ImageCGPModel
+        # elif str(self.sr_param.__class__) == "<class 'SRNet.parameters.EQLParameter'>":
+        #     if self.sr_class != EQLPDE:
+        #         self.sr_class = ImageEQL
+        # else:
+        #     raise ValueError(f"Not implement image model for {self.sr_param.__class__}")
 
         sr_model = self.sr_class(self.sr_param, kernel_size=kernel_size)
         model = ImageSRModule(sr_model, self.sr_param.n_outputs, C_out)

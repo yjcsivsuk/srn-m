@@ -1,0 +1,655 @@
+ModuleEQLNet(
+  (explained_layers): ModuleList(
+    (0): SRLayer(
+      (model): ImageSRModule(
+        (sr_model): ImageEQL(
+          (layers): ModuleList(
+            (0): Linear(in_features=361, out_features=10, bias=True)
+            (1): Linear(in_features=369, out_features=10, bias=True)
+            (2): Linear(in_features=369, out_features=10, bias=True)
+            (3): Linear(in_features=369, out_features=6, bias=True)
+          )
+        )
+      )
+    )
+    (1): SRLayer(
+      (model): ImageSRModule(
+        (sr_model): ImageEQL(
+          (layers): ModuleList(
+            (0): Linear(in_features=100, out_features=10, bias=True)
+            (1): Linear(in_features=108, out_features=10, bias=True)
+            (2): Linear(in_features=108, out_features=10, bias=True)
+            (3): Linear(in_features=108, out_features=16, bias=True)
+          )
+        )
+      )
+    )
+    (2): SRLayer(
+      (model): LinearSRModule(
+        (sr_model): EQL(
+          (layers): ModuleList(
+            (0): Linear(in_features=400, out_features=8, bias=True)
+            (1): Linear(in_features=406, out_features=8, bias=True)
+            (2): Linear(in_features=406, out_features=8, bias=True)
+            (3): Linear(in_features=406, out_features=1, bias=True)
+          )
+        )
+        (proj): Linear(in_features=1, out_features=10, bias=True)
+      )
+    )
+  )
+)
+total steps: 590
+train n batch: 118
+srnet # layers: 3
+SRNet-2 layer training:   0%|          | 0/5 [00:00<?, ?it/s]SRNet-2 layer training:   0%|          | 0/5 [00:00<?, ?it/s, avg_loss=1.92, best_loss=1.92, step_loss=1.92]SRNet-2 layer training:   0%|          | 0/5 [00:00<?, ?it/s, avg_loss=1.92, best_loss=1.92, step_loss=1.92]SRNet-2 layer training:   0%|          | 0/5 [00:00<?, ?it/s, avg_loss=1.92, best_loss=1.92, step_loss=1.95]SRNet-2 layer training:   0%|          | 0/5 [00:00<?, ?it/s, avg_loss=1.92, best_loss=1.9, step_loss=1.9]  SRNet-2 layer training:   0%|          | 0/5 [00:00<?, ?it/s, avg_loss=1.91, best_loss=1.9, step_loss=1.91]SRNet-2 layer training:   0%|          | 0/5 [00:01<?, ?it/s, avg_loss=1.91, best_loss=1.9, step_loss=1.9] SRNet-2 layer training:   0%|          | 0/5 [00:01<?, ?it/s, avg_loss=1.91, best_loss=1.88, step_loss=1.88]SRNet-2 layer training:   0%|          | 0/5 [00:01<?, ?it/s, avg_loss=1.9, best_loss=1.88, step_loss=1.89] SRNet-2 layer training:   0%|          | 0/5 [00:01<?, ?it/s, avg_loss=1.9, best_loss=1.88, step_loss=1.88]SRNet-2 layer training:   0%|          | 0/5 [00:01<?, ?it/s, avg_loss=1.9, best_loss=1.87, step_loss=1.87]SRNet-2 layer training:   0%|          | 0/5 [00:01<?, ?it/s, avg_loss=1.89, best_loss=1.87, step_loss=1.87]SRNet-2 layer training:   0%|          | 0/5 [00:01<?, ?it/s, avg_loss=1.89, best_loss=1.87, step_loss=1.88]SRNet-2 layer training:   0%|          | 0/5 [00:01<?, ?it/s, avg_loss=1.89, best_loss=1.85, step_loss=1.85]SRNet-2 layer training:   0%|          | 0/5 [00:01<?, ?it/s, avg_loss=1.89, best_loss=1.85, step_loss=1.86]SRNet-2 layer training:   0%|          | 0/5 [00:01<?, ?it/s, avg_loss=1.88, best_loss=1.8, step_loss=1.8]  SRNet-2 layer training:   0%|          | 0/5 [00:01<?, ?it/s, avg_loss=1.88, best_loss=1.8, step_loss=1.8]SRNet-2 layer training:   0%|          | 0/5 [00:01<?, ?it/s, avg_loss=1.87, best_loss=1.8, step_loss=1.85]SRNet-2 layer training:   0%|          | 0/5 [00:01<?, ?it/s, avg_loss=1.87, best_loss=1.79, step_loss=1.79]SRNet-2 layer training:   0%|          | 0/5 [00:02<?, ?it/s, avg_loss=1.86, best_loss=1.78, step_loss=1.78]SRNet-2 layer training:   0%|          | 0/5 [00:02<?, ?it/s, avg_loss=1.86, best_loss=1.78, step_loss=1.8] SRNet-2 layer training:   0%|          | 0/5 [00:02<?, ?it/s, avg_loss=1.85, best_loss=1.74, step_loss=1.74]SRNet-2 layer training:   0%|          | 0/5 [00:02<?, ?it/s, avg_loss=1.84, best_loss=1.7, step_loss=1.7]  SRNet-2 layer training:   0%|          | 0/5 [00:02<?, ?it/s, avg_loss=1.84, best_loss=1.7, step_loss=1.72]SRNet-2 layer training:   0%|          | 0/5 [00:02<?, ?it/s, avg_loss=1.83, best_loss=1.66, step_loss=1.66]SRNet-2 layer training:   0%|          | 0/5 [00:02<?, ?it/s, avg_loss=1.82, best_loss=1.66, step_loss=1.67]SRNet-2 layer training:   0%|          | 0/5 [00:02<?, ?it/s, avg_loss=1.81, best_loss=1.57, step_loss=1.57]SRNet-2 layer training:   0%|          | 0/5 [00:02<?, ?it/s, avg_loss=1.81, best_loss=1.57, step_loss=1.66]SRNet-2 layer training:   0%|          | 0/5 [00:02<?, ?it/s, avg_loss=1.8, best_loss=1.57, step_loss=1.6]  SRNet-2 layer training:   0%|          | 0/5 [00:02<?, ?it/s, avg_loss=1.79, best_loss=1.57, step_loss=1.65]SRNet-2 layer training:   0%|          | 0/5 [00:02<?, ?it/s, avg_loss=1.78, best_loss=1.57, step_loss=1.59]SRNet-2 layer training:   0%|          | 0/5 [00:02<?, ?it/s, avg_loss=1.78, best_loss=1.57, step_loss=1.59]SRNet-2 layer training:   0%|          | 0/5 [00:03<?, ?it/s, avg_loss=1.77, best_loss=1.57, step_loss=1.61]SRNet-2 layer training:   0%|          | 0/5 [00:03<?, ?it/s, avg_loss=1.76, best_loss=1.55, step_loss=1.55]SRNet-2 layer training:   0%|          | 0/5 [00:03<?, ?it/s, avg_loss=1.76, best_loss=1.52, step_loss=1.52]SRNet-2 layer training:   0%|          | 0/5 [00:03<?, ?it/s, avg_loss=1.75, best_loss=1.51, step_loss=1.51]SRNet-2 layer training:   0%|          | 0/5 [00:03<?, ?it/s, avg_loss=1.74, best_loss=1.51, step_loss=1.51]SRNet-2 layer training:   0%|          | 0/5 [00:03<?, ?it/s, avg_loss=1.73, best_loss=1.5, step_loss=1.5]  SRNet-2 layer training:   0%|          | 0/5 [00:03<?, ?it/s, avg_loss=1.73, best_loss=1.5, step_loss=1.5]SRNet-2 layer training:   0%|          | 0/5 [00:03<?, ?it/s, avg_loss=1.72, best_loss=1.48, step_loss=1.48]SRNet-2 layer training:   0%|          | 0/5 [00:03<?, ?it/s, avg_loss=1.72, best_loss=1.48, step_loss=1.5] SRNet-2 layer training:   0%|          | 0/5 [00:03<?, ?it/s, avg_loss=1.71, best_loss=1.48, step_loss=1.48]SRNet-2 layer training:   0%|          | 0/5 [00:03<?, ?it/s, avg_loss=1.7, best_loss=1.48, step_loss=1.49] SRNet-2 layer training:   0%|          | 0/5 [00:03<?, ?it/s, avg_loss=1.7, best_loss=1.48, step_loss=1.49]SRNet-2 layer training:   0%|          | 0/5 [00:03<?, ?it/s, avg_loss=1.69, best_loss=1.44, step_loss=1.44]SRNet-2 layer training:   0%|          | 0/5 [00:04<?, ?it/s, avg_loss=1.69, best_loss=1.44, step_loss=1.49]SRNet-2 layer training:   0%|          | 0/5 [00:04<?, ?it/s, avg_loss=1.68, best_loss=1.44, step_loss=1.5] SRNet-2 layer training:   0%|          | 0/5 [00:04<?, ?it/s, avg_loss=1.68, best_loss=1.43, step_loss=1.43]SRNet-2 layer training:   0%|          | 0/5 [00:04<?, ?it/s, avg_loss=1.67, best_loss=1.43, step_loss=1.43]SRNet-2 layer training:   0%|          | 0/5 [00:04<?, ?it/s, avg_loss=1.67, best_loss=1.42, step_loss=1.42]SRNet-2 layer training:   0%|          | 0/5 [00:04<?, ?it/s, avg_loss=1.66, best_loss=1.42, step_loss=1.44]SRNet-2 layer training:   0%|          | 0/5 [00:04<?, ?it/s, avg_loss=1.66, best_loss=1.42, step_loss=1.46]SRNet-2 layer training:   0%|          | 0/5 [00:04<?, ?it/s, avg_loss=1.65, best_loss=1.42, step_loss=1.43]SRNet-2 layer training:   0%|          | 0/5 [00:04<?, ?it/s, avg_loss=1.65, best_loss=1.4, step_loss=1.4]  SRNet-2 layer training:   0%|          | 0/5 [00:04<?, ?it/s, avg_loss=1.64, best_loss=1.4, step_loss=1.46]SRNet-2 layer training:   0%|          | 0/5 [00:04<?, ?it/s, avg_loss=1.64, best_loss=1.37, step_loss=1.37]SRNet-2 layer training:   0%|          | 0/5 [00:04<?, ?it/s, avg_loss=1.63, best_loss=1.37, step_loss=1.44]SRNet-2 layer training:   0%|          | 0/5 [00:04<?, ?it/s, avg_loss=1.63, best_loss=1.37, step_loss=1.39]SRNet-2 layer training:   0%|          | 0/5 [00:05<?, ?it/s, avg_loss=1.62, best_loss=1.37, step_loss=1.43]SRNet-2 layer training:   0%|          | 0/5 [00:05<?, ?it/s, avg_loss=1.62, best_loss=1.37, step_loss=1.44]SRNet-2 layer training:   0%|          | 0/5 [00:05<?, ?it/s, avg_loss=1.62, best_loss=1.35, step_loss=1.35]SRNet-2 layer training:   0%|          | 0/5 [00:05<?, ?it/s, avg_loss=1.61, best_loss=1.35, step_loss=1.39]SRNet-2 layer training:   0%|          | 0/5 [00:05<?, ?it/s, avg_loss=1.61, best_loss=1.35, step_loss=1.37]SRNet-2 layer training:   0%|          | 0/5 [00:05<?, ?it/s, avg_loss=1.6, best_loss=1.35, step_loss=1.35] SRNet-2 layer training:   0%|          | 0/5 [00:05<?, ?it/s, avg_loss=1.6, best_loss=1.35, step_loss=1.37]SRNet-2 layer training:   0%|          | 0/5 [00:05<?, ?it/s, avg_loss=1.59, best_loss=1.35, step_loss=1.39]SRNet-2 layer training:   0%|          | 0/5 [00:05<?, ?it/s, avg_loss=1.59, best_loss=1.35, step_loss=1.37]SRNet-2 layer training:   0%|          | 0/5 [00:05<?, ?it/s, avg_loss=1.59, best_loss=1.35, step_loss=1.37]SRNet-2 layer training:   0%|          | 0/5 [00:05<?, ?it/s, avg_loss=1.58, best_loss=1.35, step_loss=1.41]SRNet-2 layer training:   0%|          | 0/5 [00:05<?, ?it/s, avg_loss=1.58, best_loss=1.35, step_loss=1.38]SRNet-2 layer training:   0%|          | 0/5 [00:05<?, ?it/s, avg_loss=1.58, best_loss=1.35, step_loss=1.39]SRNet-2 layer training:   0%|          | 0/5 [00:06<?, ?it/s, avg_loss=1.57, best_loss=1.35, step_loss=1.38]SRNet-2 layer training:   0%|          | 0/5 [00:06<?, ?it/s, avg_loss=1.57, best_loss=1.35, step_loss=1.36]SRNet-2 layer training:   0%|          | 0/5 [00:06<?, ?it/s, avg_loss=1.57, best_loss=1.35, step_loss=1.35]SRNet-2 layer training:   0%|          | 0/5 [00:06<?, ?it/s, avg_loss=1.56, best_loss=1.35, step_loss=1.35]SRNet-2 layer training:   0%|          | 0/5 [00:06<?, ?it/s, avg_loss=1.56, best_loss=1.35, step_loss=1.36]SRNet-2 layer training:   0%|          | 0/5 [00:06<?, ?it/s, avg_loss=1.56, best_loss=1.35, step_loss=1.35]SRNet-2 layer training:   0%|          | 0/5 [00:06<?, ?it/s, avg_loss=1.56, best_loss=1.31, step_loss=1.31]SRNet-2 layer training:   0%|          | 0/5 [00:06<?, ?it/s, avg_loss=1.55, best_loss=1.31, step_loss=1.33]SRNet-2 layer training:   0%|          | 0/5 [00:06<?, ?it/s, avg_loss=1.55, best_loss=1.31, step_loss=1.34]SRNet-2 layer training:   0%|          | 0/5 [00:06<?, ?it/s, avg_loss=1.55, best_loss=1.31, step_loss=1.32]SRNet-2 layer training:   0%|          | 0/5 [00:06<?, ?it/s, avg_loss=1.54, best_loss=1.28, step_loss=1.28]SRNet-2 layer training:   0%|          | 0/5 [00:06<?, ?it/s, avg_loss=1.54, best_loss=1.28, step_loss=1.29]SRNet-2 layer training:   0%|          | 0/5 [00:07<?, ?it/s, avg_loss=1.54, best_loss=1.28, step_loss=1.31]SRNet-2 layer training:   0%|          | 0/5 [00:07<?, ?it/s, avg_loss=1.53, best_loss=1.28, step_loss=1.32]SRNet-2 layer training:   0%|          | 0/5 [00:07<?, ?it/s, avg_loss=1.53, best_loss=1.28, step_loss=1.34]SRNet-2 layer training:   0%|          | 0/5 [00:07<?, ?it/s, avg_loss=1.53, best_loss=1.28, step_loss=1.3] SRNet-2 layer training:   0%|          | 0/5 [00:07<?, ?it/s, avg_loss=1.52, best_loss=1.28, step_loss=1.29]SRNet-2 layer training:   0%|          | 0/5 [00:07<?, ?it/s, avg_loss=1.52, best_loss=1.28, step_loss=1.31]SRNet-2 layer training:   0%|          | 0/5 [00:07<?, ?it/s, avg_loss=1.52, best_loss=1.24, step_loss=1.24]SRNet-2 layer training:   0%|          | 0/5 [00:07<?, ?it/s, avg_loss=1.52, best_loss=1.24, step_loss=1.32]SRNet-2 layer training:   0%|          | 0/5 [00:07<?, ?it/s, avg_loss=1.51, best_loss=1.24, step_loss=1.3] SRNet-2 layer training:   0%|          | 0/5 [00:07<?, ?it/s, avg_loss=1.51, best_loss=1.24, step_loss=1.29]SRNet-2 layer training:   0%|          | 0/5 [00:07<?, ?it/s, avg_loss=1.51, best_loss=1.24, step_loss=1.32]SRNet-2 layer training:   0%|          | 0/5 [00:07<?, ?it/s, avg_loss=1.5, best_loss=1.24, step_loss=1.31] SRNet-2 layer training:   0%|          | 0/5 [00:07<?, ?it/s, avg_loss=1.5, best_loss=1.24, step_loss=1.33]SRNet-2 layer training:   0%|          | 0/5 [00:08<?, ?it/s, avg_loss=1.5, best_loss=1.24, step_loss=1.31]SRNet-2 layer training:   0%|          | 0/5 [00:08<?, ?it/s, avg_loss=1.5, best_loss=1.24, step_loss=1.24]SRNet-2 layer training:   0%|          | 0/5 [00:08<?, ?it/s, avg_loss=1.49, best_loss=1.24, step_loss=1.35]SRNet-2 layer training:   0%|          | 0/5 [00:08<?, ?it/s, avg_loss=1.49, best_loss=1.24, step_loss=1.29]SRNet-2 layer training:   0%|          | 0/5 [00:08<?, ?it/s, avg_loss=1.49, best_loss=1.24, step_loss=1.24]SRNet-2 layer training:   0%|          | 0/5 [00:08<?, ?it/s, avg_loss=1.49, best_loss=1.24, step_loss=1.25]SRNet-2 layer training:   0%|          | 0/5 [00:08<?, ?it/s, avg_loss=1.48, best_loss=1.24, step_loss=1.29]SRNet-2 layer training:   0%|          | 0/5 [00:08<?, ?it/s, avg_loss=1.48, best_loss=1.24, step_loss=1.27]SRNet-2 layer training:   0%|          | 0/5 [00:08<?, ?it/s, avg_loss=1.48, best_loss=1.24, step_loss=1.26]SRNet-2 layer training:   0%|          | 0/5 [00:08<?, ?it/s, avg_loss=1.48, best_loss=1.24, step_loss=1.27]SRNet-2 layer training:   0%|          | 0/5 [00:08<?, ?it/s, avg_loss=1.47, best_loss=1.24, step_loss=1.24]SRNet-2 layer training:   0%|          | 0/5 [00:08<?, ?it/s, avg_loss=1.47, best_loss=1.24, step_loss=1.29]SRNet-2 layer training:   0%|          | 0/5 [00:08<?, ?it/s, avg_loss=1.47, best_loss=1.24, step_loss=1.25]SRNet-2 layer training:   0%|          | 0/5 [00:09<?, ?it/s, avg_loss=1.47, best_loss=1.24, step_loss=1.24]SRNet-2 layer training:   0%|          | 0/5 [00:09<?, ?it/s, avg_loss=1.47, best_loss=1.24, step_loss=1.28]SRNet-2 layer training:   0%|          | 0/5 [00:09<?, ?it/s, avg_loss=1.46, best_loss=1.24, step_loss=1.26]SRNet-2 layer training:   0%|          | 0/5 [00:09<?, ?it/s, avg_loss=1.46, best_loss=1.24, step_loss=1.27]SRNet-2 layer training:   0%|          | 0/5 [00:09<?, ?it/s, avg_loss=1.46, best_loss=1.24, step_loss=1.27]SRNet-2 layer training:   0%|          | 0/5 [00:09<?, ?it/s, avg_loss=1.46, best_loss=1.22, step_loss=1.22]SRNet-2 layer training:   0%|          | 0/5 [00:09<?, ?it/s, avg_loss=1.46, best_loss=1.22, step_loss=1.28]SRNet-2 layer training:   0%|          | 0/5 [00:09<?, ?it/s, avg_loss=1.45, best_loss=1.22, step_loss=1.26]SRNet-2 layer training:   0%|          | 0/5 [00:09<?, ?it/s, avg_loss=1.45, best_loss=1.22, step_loss=1.28]SRNet-2 layer training:   0%|          | 0/5 [00:09<?, ?it/s, avg_loss=1.45, best_loss=1.22, step_loss=1.3] SRNet-2 layer training:   0%|          | 0/5 [00:10<?, ?it/s, avg_loss=1.45, train_loss=1.22, val_acc=0.249]SRNet-2 layer training:  20%|██        | 1/5 [00:10<00:43, 10.86s/it, avg_loss=1.45, train_loss=1.22, val_acc=0.249]SRNet-2 layer training:  20%|██        | 1/5 [00:10<00:43, 10.86s/it, avg_loss=1.22, best_loss=1.22, step_loss=1.26]SRNet-2 layer training:  20%|██        | 1/5 [00:11<00:43, 10.86s/it, avg_loss=1.22, best_loss=1.22, step_loss=1.25]SRNet-2 layer training:  20%|██        | 1/5 [00:11<00:43, 10.86s/it, avg_loss=1.22, best_loss=1.22, step_loss=1.29]SRNet-2 layer training:  20%|██        | 1/5 [00:11<00:43, 10.86s/it, avg_loss=1.22, best_loss=1.22, step_loss=1.25]SRNet-2 layer training:  20%|██        | 1/5 [00:11<00:43, 10.86s/it, avg_loss=1.22, best_loss=1.22, step_loss=1.28]SRNet-2 layer training:  20%|██        | 1/5 [00:11<00:43, 10.86s/it, avg_loss=1.22, best_loss=1.22, step_loss=1.24]SRNet-2 layer training:  20%|██        | 1/5 [00:11<00:43, 10.86s/it, avg_loss=1.22, best_loss=1.22, step_loss=1.24]SRNet-2 layer training:  20%|██        | 1/5 [00:11<00:43, 10.86s/it, avg_loss=1.22, best_loss=1.22, step_loss=1.26]SRNet-2 layer training:  20%|██        | 1/5 [00:11<00:43, 10.86s/it, avg_loss=1.22, best_loss=1.22, step_loss=1.29]SRNet-2 layer training:  20%|██        | 1/5 [00:11<00:43, 10.86s/it, avg_loss=1.22, best_loss=1.22, step_loss=1.25]SRNet-2 layer training:  20%|██        | 1/5 [00:11<00:43, 10.86s/it, avg_loss=1.21, best_loss=1.19, step_loss=1.19]SRNet-2 layer training:  20%|██        | 1/5 [00:11<00:43, 10.86s/it, avg_loss=1.21, best_loss=1.19, step_loss=1.23]SRNet-2 layer training:  20%|██        | 1/5 [00:11<00:43, 10.86s/it, avg_loss=1.21, best_loss=1.19, step_loss=1.3] SRNet-2 layer training:  20%|██        | 1/5 [00:11<00:43, 10.86s/it, avg_loss=1.21, best_loss=1.19, step_loss=1.27]SRNet-2 layer training:  20%|██        | 1/5 [00:12<00:43, 10.86s/it, avg_loss=1.21, best_loss=1.19, step_loss=1.25]SRNet-2 layer training:  20%|██        | 1/5 [00:12<00:43, 10.86s/it, avg_loss=1.21, best_loss=1.19, step_loss=1.22]SRNet-2 layer training:  20%|██        | 1/5 [00:12<00:43, 10.86s/it, avg_loss=1.21, best_loss=1.19, step_loss=1.22]SRNet-2 layer training:  20%|██        | 1/5 [00:12<00:43, 10.86s/it, avg_loss=1.21, best_loss=1.19, step_loss=1.23]SRNet-2 layer training:  20%|██        | 1/5 [00:12<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.22] SRNet-2 layer training:  20%|██        | 1/5 [00:12<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.24]SRNet-2 layer training:  20%|██        | 1/5 [00:12<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.26]SRNet-2 layer training:  20%|██        | 1/5 [00:12<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.25]SRNet-2 layer training:  20%|██        | 1/5 [00:12<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.23]SRNet-2 layer training:  20%|██        | 1/5 [00:12<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.27]SRNet-2 layer training:  20%|██        | 1/5 [00:12<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.23]SRNet-2 layer training:  20%|██        | 1/5 [00:12<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.27]SRNet-2 layer training:  20%|██        | 1/5 [00:12<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.27]SRNet-2 layer training:  20%|██        | 1/5 [00:13<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.24]SRNet-2 layer training:  20%|██        | 1/5 [00:13<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.24]SRNet-2 layer training:  20%|██        | 1/5 [00:13<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.25]SRNet-2 layer training:  20%|██        | 1/5 [00:13<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.23]SRNet-2 layer training:  20%|██        | 1/5 [00:13<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.21]SRNet-2 layer training:  20%|██        | 1/5 [00:13<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.21]SRNet-2 layer training:  20%|██        | 1/5 [00:13<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.24]SRNet-2 layer training:  20%|██        | 1/5 [00:13<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.24]SRNet-2 layer training:  20%|██        | 1/5 [00:13<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.21]SRNet-2 layer training:  20%|██        | 1/5 [00:13<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.24]SRNet-2 layer training:  20%|██        | 1/5 [00:13<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.21]SRNet-2 layer training:  20%|██        | 1/5 [00:13<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.24]SRNet-2 layer training:  20%|██        | 1/5 [00:13<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.19]SRNet-2 layer training:  20%|██        | 1/5 [00:14<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.23]SRNet-2 layer training:  20%|██        | 1/5 [00:14<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.23]SRNet-2 layer training:  20%|██        | 1/5 [00:14<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.25]SRNet-2 layer training:  20%|██        | 1/5 [00:14<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.19]SRNet-2 layer training:  20%|██        | 1/5 [00:14<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.22]SRNet-2 layer training:  20%|██        | 1/5 [00:14<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.19, step_loss=1.25]SRNet-2 layer training:  20%|██        | 1/5 [00:14<00:43, 10.86s/it, avg_loss=1.2, best_loss=1.18, step_loss=1.18]SRNet-2 layer training:  20%|██        | 1/5 [00:14<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.18, step_loss=1.24]SRNet-2 layer training:  20%|██        | 1/5 [00:14<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.18, step_loss=1.19]SRNet-2 layer training:  20%|██        | 1/5 [00:14<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.18, step_loss=1.2] SRNet-2 layer training:  20%|██        | 1/5 [00:14<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.18, step_loss=1.22]SRNet-2 layer training:  20%|██        | 1/5 [00:14<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.18, step_loss=1.24]SRNet-2 layer training:  20%|██        | 1/5 [00:15<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.18, step_loss=1.23]SRNet-2 layer training:  20%|██        | 1/5 [00:15<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.18, step_loss=1.23]SRNet-2 layer training:  20%|██        | 1/5 [00:15<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.18, step_loss=1.21]SRNet-2 layer training:  20%|██        | 1/5 [00:15<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.18, step_loss=1.19]SRNet-2 layer training:  20%|██        | 1/5 [00:15<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.18, step_loss=1.23]SRNet-2 layer training:  20%|██        | 1/5 [00:15<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.18, step_loss=1.2] SRNet-2 layer training:  20%|██        | 1/5 [00:15<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.18, step_loss=1.21]SRNet-2 layer training:  20%|██        | 1/5 [00:15<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.18, step_loss=1.2] SRNet-2 layer training:  20%|██        | 1/5 [00:15<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.18, step_loss=1.23]SRLayer(
+  (model): LinearSRModule(
+    (sr_model): EQL(
+      (layers): ModuleList(
+        (0): Linear(in_features=400, out_features=8, bias=True)
+        (1): Linear(in_features=406, out_features=8, bias=True)
+        (2): Linear(in_features=406, out_features=8, bias=True)
+        (3): Linear(in_features=406, out_features=1, bias=True)
+      )
+    )
+    (proj): Linear(in_features=1, out_features=10, bias=True)
+  )
+)
+Sequential(
+  (0): Linear(in_features=400, out_features=120, bias=True)
+  (1): ReLU()
+  (2): Linear(in_features=120, out_features=84, bias=True)
+  (3): ReLU()
+  (4): Linear(in_features=84, out_features=10, bias=True)
+)
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([96, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: SRNet-2 layer training:  20%|██        | 1/5 [00:15<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.18, step_loss=1.21]SRNet-2 layer training:  20%|██        | 1/5 [00:15<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.18, step_loss=1.21]SRNet-2 layer training:  20%|██        | 1/5 [00:15<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.18, step_loss=1.18]SRNet-2 layer training:  20%|██        | 1/5 [00:15<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.17, step_loss=1.17]SRNet-2 layer training:  20%|██        | 1/5 [00:16<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.17, step_loss=1.17]SRNet-2 layer training:  20%|██        | 1/5 [00:16<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.17, step_loss=1.24]SRNet-2 layer training:  20%|██        | 1/5 [00:16<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.17, step_loss=1.2] SRNet-2 layer training:  20%|██        | 1/5 [00:16<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.17, step_loss=1.18]SRNet-2 layer training:  20%|██        | 1/5 [00:16<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.17, step_loss=1.2] SRNet-2 layer training:  20%|██        | 1/5 [00:16<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.17, step_loss=1.18]SRNet-2 layer training:  20%|██        | 1/5 [00:16<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.15, step_loss=1.15]SRNet-2 layer training:  20%|██        | 1/5 [00:16<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.15, step_loss=1.19]SRNet-2 layer training:  20%|██        | 1/5 [00:16<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.15, step_loss=1.19]SRNet-2 layer training:  20%|██        | 1/5 [00:16<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.15, step_loss=1.2] SRNet-2 layer training:  20%|██        | 1/5 [00:16<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.15, step_loss=1.18]SRNet-2 layer training:  20%|██        | 1/5 [00:16<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.15, step_loss=1.19]SRNet-2 layer training:  20%|██        | 1/5 [00:16<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.15, step_loss=1.22]SRNet-2 layer training:  20%|██        | 1/5 [00:17<00:43, 10.86s/it, avg_loss=1.19, best_loss=1.15, step_loss=1.17]SRNet-2 layer training:  20%|██        | 1/5 [00:17<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.18]SRNet-2 layer training:  20%|██        | 1/5 [00:17<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.16]SRNet-2 layer training:  20%|██        | 1/5 [00:17<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.18]SRNet-2 layer training:  20%|██        | 1/5 [00:17<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.16]SRNet-2 layer training:  20%|██        | 1/5 [00:17<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.18]SRNet-2 layer training:  20%|██        | 1/5 [00:17<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.16]SRNet-2 layer training:  20%|██        | 1/5 [00:17<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.24]SRNet-2 layer training:  20%|██        | 1/5 [00:17<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.2] SRNet-2 layer training:  20%|██        | 1/5 [00:17<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.18]SRNet-2 layer training:  20%|██        | 1/5 [00:17<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.19]SRNet-2 layer training:  20%|██        | 1/5 [00:17<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.17]SRNet-2 layer training:  20%|██        | 1/5 [00:17<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.18]SRNet-2 layer training:  20%|██        | 1/5 [00:18<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.21]SRNet-2 layer training:  20%|██        | 1/5 [00:18<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.17]SRNet-2 layer training:  20%|██        | 1/5 [00:18<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.2] SRNet-2 layer training:  20%|██        | 1/5 [00:18<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.16]SRNet-2 layer training:  20%|██        | 1/5 [00:18<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.2] SRNet-2 layer training:  20%|██        | 1/5 [00:18<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.18]SRNet-2 layer training:  20%|██        | 1/5 [00:18<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.16]SRNet-2 layer training:  20%|██        | 1/5 [00:18<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.21]SRNet-2 layer training:  20%|██        | 1/5 [00:18<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.19]SRNet-2 layer training:  20%|██        | 1/5 [00:18<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.2] SRNet-2 layer training:  20%|██        | 1/5 [00:18<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.16]SRNet-2 layer training:  20%|██        | 1/5 [00:18<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.19]SRNet-2 layer training:  20%|██        | 1/5 [00:18<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.16]SRNet-2 layer training:  20%|██        | 1/5 [00:19<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.15, step_loss=1.15]SRNet-2 layer training:  20%|██        | 1/5 [00:19<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.12, step_loss=1.12]SRNet-2 layer training:  20%|██        | 1/5 [00:19<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  20%|██        | 1/5 [00:19<00:43, 10.86s/it, avg_loss=1.18, best_loss=1.12, step_loss=1.17]SRNet-2 layer training:  20%|██        | 1/5 [00:19<00:43, 10.86s/it, avg_loss=1.17, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  20%|██        | 1/5 [00:19<00:43, 10.86s/it, avg_loss=1.17, best_loss=1.12, step_loss=1.19]SRNet-2 layer training:  20%|██        | 1/5 [00:19<00:43, 10.86s/it, avg_loss=1.17, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  20%|██        | 1/5 [00:19<00:43, 10.86s/it, avg_loss=1.17, best_loss=1.12, step_loss=1.2] SRNet-2 layer training:  20%|██        | 1/5 [00:19<00:43, 10.86s/it, avg_loss=1.17, best_loss=1.12, step_loss=1.21]SRNet-2 layer training:  20%|██        | 1/5 [00:19<00:43, 10.86s/it, avg_loss=1.17, best_loss=1.12, step_loss=1.19]SRNet-2 layer training:  20%|██        | 1/5 [00:19<00:43, 10.86s/it, avg_loss=1.17, best_loss=1.12, step_loss=1.18]SRNet-2 layer training:  20%|██        | 1/5 [00:19<00:43, 10.86s/it, avg_loss=1.17, best_loss=1.12, step_loss=1.21]SRNet-2 layer training:  20%|██        | 1/5 [00:20<00:43, 10.86s/it, avg_loss=1.17, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  20%|██        | 1/5 [00:20<00:43, 10.86s/it, avg_loss=1.17, best_loss=1.12, step_loss=1.13]SRNet-2 layer training:  20%|██        | 1/5 [00:21<00:43, 10.86s/it, avg_loss=1.17, train_loss=1.12, val_acc=0.344]SRNet-2 layer training:  40%|████      | 2/5 [00:21<00:31, 10.56s/it, avg_loss=1.17, train_loss=1.12, val_acc=0.344]SRNet-2 layer training:  40%|████      | 2/5 [00:21<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.17]SRNet-2 layer training:  40%|████      | 2/5 [00:21<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:21<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:21<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.2] SRNet-2 layer training:  40%|████      | 2/5 [00:21<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.19]SRNet-2 layer training:  40%|████      | 2/5 [00:21<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:21<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.18]SRNet-2 layer training:  40%|████      | 2/5 [00:21<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:21<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.21]SRNet-2 layer training:  40%|████      | 2/5 [00:21<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:22<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:22<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.18]SRNet-2 layer training:  40%|████      | 2/5 [00:22<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:22<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.18]SRNet-2 layer training:  40%|████      | 2/5 [00:22<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.2] SRNet-2 layer training:  40%|████      | 2/5 [00:22<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:22<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:22<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.2] SRNet-2 layer training:  40%|████      | 2/5 [00:22<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:22<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.13]SRNet-2 layer training:  40%|████      | 2/5 [00:22<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:22<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.18]SRNet-2 layer training:  40%|████      | 2/5 [00:23<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:23<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.18]SRNet-2 layer training:  40%|████      | 2/5 [00:23<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.19]SRNet-2 layer training:  40%|████      | 2/5 [00:23<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:23<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:23<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.18]SRNet-2 layer training:  40%|████      | 2/5 [00:23<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:23<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.18]SRNet-2 layer training:  40%|████      | 2/5 [00:23<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:23<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:23<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:23<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.12]SRNet-2 layer training:  40%|████      | 2/5 [00:24<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.19]SRNet-2 layer training:  40%|████      | 2/5 [00:24<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:24<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.17]SRNet-2 layer training:  40%|████      | 2/5 [00:24<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:24<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.17]SRNet-2 layer training:  40%|████      | 2/5 [00:24<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.2] SRNet-2 layer training:  40%|████      | 2/5 [00:24<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:24<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.12]SRNet-2 layer training:  40%|████      | 2/5 [00:24<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:24<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:24<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:24<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.19]SRNet-2 layer training:  40%|████      | 2/5 [00:24<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:25<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:25<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:25<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.12]SRNet-2 layer training:  40%|████      | 2/5 [00:25<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:25<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.17]SRNet-2 layer training:  40%|████      | 2/5 [00:25<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.18]SRNet-2 layer training:  40%|████      | 2/5 [00:25<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:25<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.17]SRNet-2 layer training:  40%|████      | 2/5 [00:25<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.19]SRNet-2 layer training:  40%|████      | 2/5 [00:25<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:25<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.12]SRNet-2 layer training:  40%|████      | 2/5 [00:25<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:25<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:26<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.17]SRNet-2 layer training:  40%|████      | 2/5 [00:26<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.17]SRNet-2 layer training:  40%|████      | 2/5 [00:26<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.17]SRNet-2 layer training:  40%|████      | 2/5 [00:26<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.21]SRNet-2 layer training:  40%|████      | 2/5 [00:26<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:26<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:26<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.18]SRNet-2 layer training:  40%|████      | 2/5 [00:26<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:26<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:26<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:26<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:26<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.17]SRNet-2 layer training:  40%|████      | 2/5 [00:26<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.12]SRNet-2 layer training:  40%|████      | 2/5 [00:27<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.19]SRNet-2 layer training:  40%|████      | 2/5 [00:27<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:27<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:27<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.13]SRNet-2 layer training:  40%|████      | 2/5 [00:27<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:27<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.17]SRNet-2 layer training:  40%|████      | 2/5 [00:27<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.18]SRNet-2 layer training:  40%|████      | 2/5 [00:27<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.13]SRNet-2 layer training:  40%|████      | 2/5 [00:27<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:27<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:27<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:27<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.13]SRNet-2 layer training:  40%|████      | 2/5 [00:27<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:28<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:28<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.12]SRNet-2 layer training:  40%|████      | 2/5 [00:28<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.17]SRNet-2 layer training:  40%|████      | 2/5 [00:28<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:28<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:28<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:28<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.13]SRNet-2 layer training:  40%|████      | 2/5 [00:28<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:28<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:28<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.17]SRNet-2 layer training:  40%|████      | 2/5 [00:28<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.13]SRNet-2 layer training:  40%|████      | 2/5 [00:28<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:29<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.12]SRNet-2 layer training:  40%|████      | 2/5 [00:29<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.18]SRNet-2 layer training:  40%|████      | 2/5 [00:29<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.12, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:29<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.11, step_loss=1.11]SRNet-2 layer training:  40%|████      | 2/5 [00:29<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.11, step_loss=1.17]SRNet-2 layer training:  40%|████      | 2/5 [00:29<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.11, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:29<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.11, step_loss=1.17]SRNet-2 layer training:  40%|████      | 2/5 [00:29<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.11, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:29<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.11, step_loss=1.13]SRNet-2 layer training:  40%|████      | 2/5 [00:29<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.11, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:29<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.11, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:29<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.11, step_loss=1.13]SRNet-2 layer training:  40%|████      | 2/5 [00:29<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.11, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:30<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.11, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:30<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.11, step_loss=1.15]SRNet-2 layer training:  40%|████      | 2/5 [00:30<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.11, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:30<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.11, step_loss=1.16]SRNet-2 layer training:  40%|████      | 2/5 [00:30<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.11, step_loss=1.17]SRNet-2 layer training:  40%|████      | 2/5 [00:30<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.11, step_loss=1.14]SRNet-2 layer training:  40%|████      | 2/5 [00:30<00:31, 10.56s/it, avg_loss=1.12, best_loss=1.11, step_loss=1.2] SRNet-2 layer training:  40%|████      | 2/5 [00:31<00:31, 10.56s/it, avg_loss=1.12, train_loss=1.11, val_acc=0.389]SRNet-2 layer training:  60%|██████    | 3/5 [00:31<00:20, 10.49s/it, avg_loss=1.12, train_loss=1.11, val_acc=0.389]SRNet-2 layer training:  60%|██████    | 3/5 [00:31<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:31<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:31<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:31<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:32<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:32<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:32<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.11]SRNet-2 layer training:  60%|██████    | 3/5 [00:32<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:32<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:32<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.17]SRNet-2 layer training:  60%|██████    | 3/5 [00:32<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:32<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.19]SRNet-2 layer training:  60%|██████    | 3/5 [00:32<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:32<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:32<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.13]SRNet-2 layer training:  60%|██████    | 3/5 [00:32<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:32<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.16]SRNet-2 layer training:  60%|██████    | 3/5 [00:33<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:33<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.17]SRNet-2 layer training:  60%|██████    | 3/5 [00:33<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.15]torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([96, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([96, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: SRNet-2 layer training:  60%|██████    | 3/5 [00:33<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.11, step_loss=1.18]SRNet-2 layer training:  60%|██████    | 3/5 [00:33<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.1, step_loss=1.1]  SRNet-2 layer training:  60%|██████    | 3/5 [00:33<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.1, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:33<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.1, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:33<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.1, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:33<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.1, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:33<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.1, step_loss=1.11]SRNet-2 layer training:  60%|██████    | 3/5 [00:33<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.1, step_loss=1.13]SRNet-2 layer training:  60%|██████    | 3/5 [00:33<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.1, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:33<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.1, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:34<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.1, step_loss=1.11]SRNet-2 layer training:  60%|██████    | 3/5 [00:34<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.1, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:34<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.1, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:34<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.1, step_loss=1.16]SRNet-2 layer training:  60%|██████    | 3/5 [00:34<00:20, 10.49s/it, avg_loss=1.11, best_loss=1.08, step_loss=1.08]SRNet-2 layer training:  60%|██████    | 3/5 [00:34<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.15] SRNet-2 layer training:  60%|██████    | 3/5 [00:34<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:34<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.19]SRNet-2 layer training:  60%|██████    | 3/5 [00:34<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:34<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.16]SRNet-2 layer training:  60%|██████    | 3/5 [00:34<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:34<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:34<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:35<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:35<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:35<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.17]SRNet-2 layer training:  60%|██████    | 3/5 [00:35<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:35<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:35<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:35<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.1] SRNet-2 layer training:  60%|██████    | 3/5 [00:35<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:35<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.16]SRNet-2 layer training:  60%|██████    | 3/5 [00:35<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:35<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.16]SRNet-2 layer training:  60%|██████    | 3/5 [00:35<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:36<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  60%|██████    | 3/5 [00:36<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  60%|██████    | 3/5 [00:36<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.16]SRNet-2 layer training:  60%|██████    | 3/5 [00:36<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  60%|██████    | 3/5 [00:36<00:20, 10.49s/it, avg_loss=1.1, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:36<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:36<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.17]SRNet-2 layer training:  60%|██████    | 3/5 [00:36<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:36<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:36<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.1] SRNet-2 layer training:  60%|██████    | 3/5 [00:36<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.08]SRNet-2 layer training:  60%|██████    | 3/5 [00:36<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:36<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:37<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:37<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  60%|██████    | 3/5 [00:37<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.16]SRNet-2 layer training:  60%|██████    | 3/5 [00:37<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.19]SRNet-2 layer training:  60%|██████    | 3/5 [00:37<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  60%|██████    | 3/5 [00:37<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  60%|██████    | 3/5 [00:37<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:37<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:37<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:37<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:37<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.16]SRNet-2 layer training:  60%|██████    | 3/5 [00:37<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:37<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  60%|██████    | 3/5 [00:38<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  60%|██████    | 3/5 [00:38<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:38<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  60%|██████    | 3/5 [00:38<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:38<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:38<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.16]SRNet-2 layer training:  60%|██████    | 3/5 [00:38<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:38<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:38<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:38<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  60%|██████    | 3/5 [00:38<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:38<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:39<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:39<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:39<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:39<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:39<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:39<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:39<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:39<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  60%|██████    | 3/5 [00:39<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:39<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.16]SRNet-2 layer training:  60%|██████    | 3/5 [00:39<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  60%|██████    | 3/5 [00:39<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  60%|██████    | 3/5 [00:39<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.16]SRNet-2 layer training:  60%|██████    | 3/5 [00:40<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  60%|██████    | 3/5 [00:40<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  60%|██████    | 3/5 [00:40<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.08]SRNet-2 layer training:  60%|██████    | 3/5 [00:40<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  60%|██████    | 3/5 [00:40<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:40<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:40<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.16]SRNet-2 layer training:  60%|██████    | 3/5 [00:40<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:40<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:40<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  60%|██████    | 3/5 [00:40<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  60%|██████    | 3/5 [00:40<00:20, 10.49s/it, avg_loss=1.09, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  60%|██████    | 3/5 [00:42<00:20, 10.49s/it, avg_loss=1.09, train_loss=1.08, val_acc=0.387]SRNet-2 layer training:  80%|████████  | 4/5 [00:42<00:10, 10.46s/it, avg_loss=1.09, train_loss=1.08, val_acc=0.387]SRNet-2 layer training:  80%|████████  | 4/5 [00:42<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.1] SRNet-2 layer training:  80%|████████  | 4/5 [00:42<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  80%|████████  | 4/5 [00:42<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:42<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  80%|████████  | 4/5 [00:42<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:42<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.17]SRNet-2 layer training:  80%|████████  | 4/5 [00:42<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:42<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:42<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:42<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.16]SRNet-2 layer training:  80%|████████  | 4/5 [00:42<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:42<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  80%|████████  | 4/5 [00:43<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:43<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:43<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:43<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  80%|████████  | 4/5 [00:43<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.1] SRNet-2 layer training:  80%|████████  | 4/5 [00:43<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:43<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:43<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:43<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:43<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:43<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:43<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:44<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:44<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  80%|████████  | 4/5 [00:44<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.1] SRNet-2 layer training:  80%|████████  | 4/5 [00:44<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:44<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.16]SRNet-2 layer training:  80%|████████  | 4/5 [00:44<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.09]SRNet-2 layer training:  80%|████████  | 4/5 [00:44<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:44<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:44<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.16]SRNet-2 layer training:  80%|████████  | 4/5 [00:44<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  80%|████████  | 4/5 [00:44<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  80%|████████  | 4/5 [00:44<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:44<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:45<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.1] SRNet-2 layer training:  80%|████████  | 4/5 [00:45<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  80%|████████  | 4/5 [00:45<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:45<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.16]SRNet-2 layer training:  80%|████████  | 4/5 [00:45<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  80%|████████  | 4/5 [00:45<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.1] SRNet-2 layer training:  80%|████████  | 4/5 [00:45<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:45<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  80%|████████  | 4/5 [00:45<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:45<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:45<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:45<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.19]SRNet-2 layer training:  80%|████████  | 4/5 [00:46<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:46<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:46<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  80%|████████  | 4/5 [00:46<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  80%|████████  | 4/5 [00:46<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:46<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.1] SRNet-2 layer training:  80%|████████  | 4/5 [00:46<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  80%|████████  | 4/5 [00:46<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.17]SRNet-2 layer training:  80%|████████  | 4/5 [00:46<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:46<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:46<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  80%|████████  | 4/5 [00:46<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.1] SRNet-2 layer training:  80%|████████  | 4/5 [00:46<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  80%|████████  | 4/5 [00:47<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:47<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:47<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  80%|████████  | 4/5 [00:47<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:47<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.1] SRNet-2 layer training:  80%|████████  | 4/5 [00:47<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:47<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  80%|████████  | 4/5 [00:47<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:47<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.1] SRNet-2 layer training:  80%|████████  | 4/5 [00:47<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:47<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.1] SRNet-2 layer training:  80%|████████  | 4/5 [00:47<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:47<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  80%|████████  | 4/5 [00:48<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:48<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:48<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:48<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.16]SRNet-2 layer training:  80%|████████  | 4/5 [00:48<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:48<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:48<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.16]SRNet-2 layer training:  80%|████████  | 4/5 [00:48<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.09]SRNet-2 layer training:  80%|████████  | 4/5 [00:48<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  80%|████████  | 4/5 [00:48<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  80%|████████  | 4/5 [00:48<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:48<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.1] SRNet-2 layer training:  80%|████████  | 4/5 [00:48<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:49<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:49<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:49<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  80%|████████  | 4/5 [00:49<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.16]SRNet-2 layer training:  80%|████████  | 4/5 [00:49<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:49<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:49<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:49<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.1] SRNet-2 layer training:  80%|████████  | 4/5 [00:49<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([96, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: SRNet-2 layer training:  80%|████████  | 4/5 [00:49<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:49<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:49<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:49<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:50<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.15]SRNet-2 layer training:  80%|████████  | 4/5 [00:50<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:50<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  80%|████████  | 4/5 [00:50<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:50<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.1] SRNet-2 layer training:  80%|████████  | 4/5 [00:50<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  80%|████████  | 4/5 [00:50<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  80%|████████  | 4/5 [00:50<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:50<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:50<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:50<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:50<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.14]SRNet-2 layer training:  80%|████████  | 4/5 [00:50<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.12]SRNet-2 layer training:  80%|████████  | 4/5 [00:51<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.1] SRNet-2 layer training:  80%|████████  | 4/5 [00:51<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.11]SRNet-2 layer training:  80%|████████  | 4/5 [00:51<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.13]SRNet-2 layer training:  80%|████████  | 4/5 [00:51<00:10, 10.46s/it, avg_loss=1.08, best_loss=1.08, step_loss=1.18]SRNet-2 layer training:  80%|████████  | 4/5 [00:52<00:10, 10.46s/it, avg_loss=1.08, train_loss=1.08, val_acc=0.394]SRNet-2 layer training: 100%|██████████| 5/5 [00:52<00:00, 10.43s/it, avg_loss=1.08, train_loss=1.08, val_acc=0.394]SRNet-2 layer training: 100%|██████████| 5/5 [00:52<00:00, 10.48s/it, avg_loss=1.08, train_loss=1.08, val_acc=0.394]
+torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([512, 400])
+layer input shape: torch.Size([96, 400])
