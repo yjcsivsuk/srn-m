@@ -1,0 +1,22 @@
+/Users/lihaoyang/anaconda3/envs/SRNet/bin/python /Users/lihaoyang/Projects/srn-m/train_img_pde.py
+Hidden Images Shape: torch.Size([4, 6, 14, 14])
+EQLPDE(
+  (u_model): EQL(
+    (layers): ModuleList(
+      (0): Linear(in_features=5, out_features=8, bias=True)
+      (1): Linear(in_features=11, out_features=8, bias=True)
+      (2): Linear(in_features=11, out_features=8, bias=True)
+      (3): Linear(in_features=11, out_features=1, bias=True)
+    )
+  )
+  (pde_model): EQL(
+    (layers): ModuleList(
+      (0): Linear(in_features=3, out_features=8, bias=True)
+      (1): Linear(in_features=9, out_features=1, bias=True)
+    )
+  )
+)
+Input data shape: 6 torch.Size([4704]) U shape: torch.Size([4, 6, 14, 14])
+Train PDE Find: 100%|██████████| 1000/1000 [01:14<00:00, 13.47it/s, step_loss=19.7, step_pd_loss=19.1, step_pde_loss=0.00482, step_regularization=6.82, step_u_loss=0.634]
+
+进程已结束，退出代码为 0
