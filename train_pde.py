@@ -1,3 +1,6 @@
+"""
+预训练一个pinn，后续再接eql。不是端到端。但是貌似没有使用。
+"""
 import os
 import argparse
 import torch
