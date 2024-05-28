@@ -112,12 +112,12 @@ def load_pde_data(problem="burgers"):
     x = np.squeeze(data.get("x"))
     t = np.squeeze(data.get("t").reshape(1, 100))
 
-    # print(u.shape, x.shape, t.shape)
+    print(u.shape, x.shape, t.shape)
     # shape of (n_x, n_t)
     n, m = u.shape
     x = np.tile(x, (m, 1)).transpose((1, 0))
     t = np.tile(t, (n, 1))
-    # print(x.shape, t.shape)
+    print(x.shape, t.shape)
 
     x = x.flatten()
     t = t.flatten()

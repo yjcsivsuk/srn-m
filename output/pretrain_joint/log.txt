@@ -1,0 +1,24 @@
+2024-05-28 20:31:40,783 - INFO - Problem: burgers
+2024-05-28 20:31:40,783 - INFO - Model: CGP; # inputs: 2; # outputs: 1
+2024-05-28 20:31:40,783 - INFO - Parameters: {'input_channels': None, 'n_inputs': 2, 'n_outputs': 1, 'n_eph': 1, 'one_in_one_out': False, 'function_set': [add, sub, mul, div], 'max_arity': 2, 'n_rows': 10, 'n_cols': 8, 'levels_back': 20, 'has_diff': True, 'n_diff_cols': 2, 'diff_function_set': [diff, diff2]}
+2024-05-28 20:31:40,783 - INFO - Training data: torch.Size([25600, 2])
+2024-05-28 20:31:40,783 - INFO - Output: output/pretrain_joint
+2024-05-28 20:31:40,987 - INFO - Epoch 1, step 100: val_loss=0.011413869446987518
+2024-05-28 20:31:40,987 - INFO - Hit best val loss: 0.011413869446987518. Saving...
+2024-05-28 20:31:41,157 - INFO - Epoch 1, step 200: val_loss=0.01036714068330184
+2024-05-28 20:31:41,157 - INFO - Hit best val loss: 0.01036714068330184. Saving...
+2024-05-28 20:31:41,324 - INFO - Epoch 1, step 300: val_loss=0.01227383295452455
+2024-05-28 20:31:41,492 - INFO - Epoch 1, step 400: val_loss=0.008682457955219434
+2024-05-28 20:31:41,492 - INFO - Hit best val loss: 0.008682457955219434. Saving...
+2024-05-28 20:31:41,658 - INFO - Epoch 1, step 500: val_loss=0.0069771755687179395
+2024-05-28 20:31:41,658 - INFO - Hit best val loss: 0.0069771755687179395. Saving...
+2024-05-28 20:32:22,074 - INFO - Problem: burgers
+2024-05-28 20:32:22,074 - INFO - Model: CGP; # inputs: 2; # outputs: 1
+2024-05-28 20:32:22,074 - INFO - Parameters: {'input_channels': None, 'n_inputs': 2, 'n_outputs': 1, 'n_eph': 1, 'one_in_one_out': False, 'function_set': [add, sub, mul, div], 'max_arity': 2, 'n_rows': 10, 'n_cols': 8, 'levels_back': 20, 'has_diff': True, 'n_diff_cols': 2, 'diff_function_set': [diff, diff2]}
+2024-05-28 20:32:22,074 - INFO - Training data: torch.Size([25600, 2])
+2024-05-28 20:32:22,074 - INFO - Output: output/pretrain_joint
+2024-05-28 20:34:27,205 - INFO - Problem: burgers
+2024-05-28 20:34:48,787 - INFO - Model: CGP; # inputs: 2; # outputs: 1
+2024-05-28 20:34:49,396 - INFO - Parameters: {'input_channels': None, 'n_inputs': 2, 'n_outputs': 1, 'n_eph': 1, 'one_in_one_out': False, 'function_set': [add, sub, mul, div], 'max_arity': 2, 'n_rows': 10, 'n_cols': 8, 'levels_back': 20, 'has_diff': True, 'n_diff_cols': 2, 'diff_function_set': [diff, diff2]}
+2024-05-28 20:34:49,868 - INFO - Training data: torch.Size([25600, 2])
+2024-05-28 20:34:50,401 - INFO - Output: output/pretrain_joint

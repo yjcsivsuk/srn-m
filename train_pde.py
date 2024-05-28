@@ -172,7 +172,6 @@ def train_pde(args):
         )
 
     if args.evolution:
-
         def evaluate(sr_model, X, y, u_hat, diff_loss=None):
             expression = sr_model.expr()
             penalty = sp.count_ops(expression)
@@ -257,7 +256,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     # model
     parser.add_argument("--sr_class", type=str, default="CGP")
-    parser.add_argument("--load_pretrain_pde", action="store_true", default=False)
+    parser.add_argument("--load_pretrain_pde", action="store_true", default=True)
     parser.add_argument("--pretrain_pde_path", type=str, default="output/burgers/pretrain-joint/pretrained_pde.pt")
     # data
     parser.add_argument("--problem", type=str, default="burgers")
