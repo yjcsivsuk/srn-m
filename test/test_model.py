@@ -161,8 +161,7 @@ def test_eql():
     print(f'Input:{input},Input Shape:{input.shape}')
     u = eql(input)
     print(f'U:{u},U Shape:{u.shape}')
-    ux = torch.autograd.grad(u, input, torch.ones_like(u), retain_graph=True, create_graph=True)[
-        0]  # 因为torch.autograd.grad返回的是一个元组，取[0]只保留梯度值，去掉grad_fn梯度信息。
+    ux = torch.autograd.grad(u, input, torch.ones_like(u), retain_graph=True, create_graph=True)[0]  # 因为torch.autograd.grad返回的是一个元组，取[0]只保留梯度值，去掉grad_fn梯度信息。
     print(f'Ux:{ux},Ux Shape:{ux.shape}')
 
 
