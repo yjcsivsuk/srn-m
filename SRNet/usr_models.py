@@ -6,7 +6,7 @@ import sympy as sp
 import numpy as np
 from torch import Tensor, nn
 import torch.linalg
-from parameters import CGPParameter, EQLParameter
+from parameters import CGPParameter, EQLParameter, KANParameter
 from sr_models import CGPModel
 from functions import img_dx, img_dy
 
@@ -546,7 +546,7 @@ class KANLinear(nn.Module):
             0, 1
         )  # (in_features, batch_size, grid_size + spline_order)
         B = y.transpose(0, 1)  # (in_features, batch_size, out_features)
-        solution= torch.linalg.lstsq(
+        solution = torch.linalg.lstsq(
             A, B
         ).solution  # (in_features, grid_size + spline_order, out_features)
         result = solution.permute(
@@ -569,6 +569,7 @@ class KANLinear(nn.Module):
         )
 
     # 线性组合不同的基函数
+    # KANPDE运行到这会报错
     def forward(self, x: torch.Tensor):
         assert x.size(-1) == self.in_features
         original_shape = x.shape
@@ -657,21 +658,11 @@ class KANLinear(nn.Module):
 
 
 class KAN(nn.Module):
-    def __init__(
-            self,
-            layers_hidden,
-            grid_size=5,
-            spline_order=3,
-            scale_noise=0.1,
-            scale_base=1.0,
-            scale_spline=1.0,
-            base_activation=torch.nn.SiLU,
-            grid_eps=0.02,
-            grid_range=[-1, 1],
-    ):
+    def __init__(self, sr_param: KANParameter):
         super(KAN, self).__init__()
-        self.grid_size = grid_size
-        self.spline_order = spline_order
+        self.grid_size = sr_param.grid_size
+        self.spline_order = sr_param.spline_order
+        layers_hidden = sr_param.layers_hidden
 
         self.layers = torch.nn.ModuleList()
         for in_features, out_features in zip(layers_hidden, layers_hidden[1:]):
@@ -679,18 +670,21 @@ class KAN(nn.Module):
                 KANLinear(
                     in_features,
                     out_features,
-                    grid_size=grid_size,
-                    spline_order=spline_order,
-                    scale_noise=scale_noise,
-                    scale_base=scale_base,
-                    scale_spline=scale_spline,
-                    base_activation=base_activation,
-                    grid_eps=grid_eps,
-                    grid_range=grid_range,
+                    grid_size=sr_param.grid_size,
+                    spline_order=sr_param.spline_order,
+                    scale_noise=sr_param.scale_noise,
+                    scale_base=sr_param.scale_base,
+                    scale_spline=sr_param.scale_spline,
+                    base_activation=sr_param.base_activation,
+                    grid_eps=sr_param.grid_eps,
+                    grid_range=sr_param.grid_range,
                 )
             )
 
-    def forward(self, x: torch.Tensor, update_grid=False):
+    def forward(self, x: list or torch.Tensor, update_grid=False):
+        if isinstance(x, list):
+            # (B, C, H_out, W_out, nvar)
+            x = torch.stack(x, dim=-1)
         for layer in self.layers:
             if update_grid:
                 layer.update_grid(x)
@@ -702,3 +696,102 @@ class KAN(nn.Module):
             layer.regularization_loss(regularize_activation, regularize_entropy)
             for layer in self.layers
         )
+
+
+class KANPDE(nn.Module):
+    def __init__(self, sr_param: KANParameter, with_fu=False, pd_lib=['dx', 'dy', 'dxdy']) -> None:
+        super().__init__()
+        self.sr_param = sr_param
+        self.u_model = None
+        self.with_fu = with_fu
+        if with_fu:
+            self.u_model = KAN(sr_param)
+        else:
+            self.u_model = DiffMLP(
+                sr_param.n_inputs + sr_param.n_eph,
+                n_layer=len(sr_param.layers_hidden)-1
+            )
+
+        self.pd_lib = pd_lib
+        pde_param = copy.deepcopy(sr_param)
+        pde_param.n_inputs = len(pd_lib)
+        pde_param.n_outputs = 1
+        # important: strict `n_layers` as 1
+        pde_param.n_layers = 1
+        self.pde_param = pde_param
+        self.pde_model = KAN(pde_param)  # 之后进行替换的时候，估计得从这里改？
+
+    # 求导
+    def diff_item(self, u, x, item='x', real_u=False):
+        # 如果u是神经网络的预测值，那么就求导
+        if not real_u:
+            return torch.autograd.grad(u, x, grad_outputs=torch.ones_like(u), create_graph=True)[0]
+        # 如果u是真实值，直接对图像进行求导操作
+        # now, diff.shape should be (B, C, H, W)
+        diff = img_dx(u) if item == 'x' else img_dy(u)
+        return diff
+
+    # 构建偏微分项
+    def build_pde_lib(self, x, y, t, u, pd_item, real_u):
+        if pd_item == 'dt':
+            di = self.diff_item(u, t, real_u=real_u)
+
+        elif pd_item == 'dx':
+            di = self.diff_item(u, x, 'x', real_u=real_u)
+        elif pd_item == 'dy':
+            di = self.diff_item(u, y, 'y', real_u=real_u)
+
+        elif pd_item == 'dx2':
+            di = self.diff_item(self.diff_item(u, x, 'x', real_u=real_u), x, 'x', real_u=real_u)
+        elif pd_item == 'dy2':
+            di = self.diff_item(self.diff_item(u, x, 'y', real_u=real_u), x, 'y', real_u=real_u)
+        elif pd_item == 'dxdy':
+            di = self.diff_item(self.diff_item(u, x, 'x', real_u=real_u), x, 'y', real_u=real_u)
+        else:
+            raise ValueError("Invalid pd_item: %s" % pd_item)
+        if real_u:
+            di = di.reshape(-1)  # 将tensor的形状改为一串，没有行和列
+        return di
+
+    # 返回各个偏微分项，用于之后计算loss
+    def forward(self, x, y, t, dx=None, dy=None, u_real=None):
+        input_data = [x, y, t]
+        if dx is not None:
+            input_data.append(dx)
+        if dy is not None:
+            input_data.append(dy)
+
+        # if self.with_fu:
+        u_hat = self.u_model(input_data)  # input_data(list:5)
+        # else:
+        #     assert u_real is not None, "`u_real` should not be None when `with_fu=False`"
+
+        pd_reals = []
+        pd_hats = []  # 经过pinn后得到的偏微分项，之后要被输入进kan中
+        for pd_item in self.pd_lib:
+            pd_hat = self.build_pde_lib(x, y, t, u_hat, pd_item, real_u=False)
+            pd_hats.append(pd_hat)  # 这里的pd_hats是一个列表，直接输入进KAN中会报错
+            if u_real is not None:
+                pd_real = self.build_pde_lib(x, y, t, u_real, pd_item, real_u=True)
+                pd_reals.append(pd_real)
+
+        # if self.with_fu:
+        pde_out = self.pde_model(pd_hats)  # 将pinn生成的偏微分项输入进kan中
+        # else:
+        #     pde_out = self.pde_model(pd_reals)
+        return {
+            "u_hat": u_hat,
+            "pd_reals": pd_reals,
+            "pd_hats": pd_hats,
+            "pde_out": pde_out
+        }
+
+    # def expr(self, input_vars=None, sparse_filter=0.01):
+    #     return self.pde_model.expr(input_vars, sparse_filter=sparse_filter)
+
+    def regularization(self, type="l1"):
+        reg = 0.
+        for name, param in self.pde_model.named_parameters():
+            if 'weight' in name:
+                reg += torch.sum(torch.abs(param))
+        return reg

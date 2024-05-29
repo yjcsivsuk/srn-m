@@ -8,7 +8,7 @@ import numpy as np
 import random
 import matplotlib.pyplot as plt
 from torch import nn
-from SRNet.parameters import CGPParameter, EQLParameter
+from SRNet.parameters import CGPParameter, EQLParameter, KANParameter
 from SRNet.sr_models import CGPModel, ImageCGPModel
 from SRNet.usr_models import EQL, ImageEQL, DiffCGPModel, DiffMLP, KAN, KANLinear
 from SRNet.functions import *
@@ -25,6 +25,16 @@ class Args:
 
     n_diff_cols = 2
     n_layers = 3
+
+    layers_hidden = [3, 3, 1]
+    grid_size = 5
+    spline_order = 3
+    scale_noise = 0.1
+    scale_base = 1.0
+    scale_spline = 1.0
+    base_activation = nn.SiLU
+    grid_eps = 0.02
+    grid_range = [-1, 1]
 
 
 def setup_seed(seed):
@@ -214,5 +224,17 @@ def test_diff_mlp():
 
 
 def test_kan():
-    kan = KAN([2, 2, 1])
-    print(f'kan:{kan}')
+    setup_seed(7)
+    args = Args()
+    kan_param = KANParameter(
+        n_inputs=args.layers_hidden[0],
+        n_outputs=args.layers_hidden[-1],
+        n_eph=0,
+        args=args,
+        function_set=None,
+        one_in_one_out=False
+    )
+    kan = KAN(kan_param)
+    print(kan)
+    y = kan(X)
+    print(y, y.shape)

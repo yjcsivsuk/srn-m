@@ -100,3 +100,26 @@ class EQLParameter(BaseSRParameter):
         for f in self.function_set:
             n_arities += f.arity
         self.hidden_in_size = n_arities
+
+
+class KANParameter(BaseSRParameter):
+    def __init__(
+            self,
+            n_inputs,
+            n_outputs,
+            n_eph,
+            args,
+            function_set=None,
+            one_in_one_out=False,
+    ) -> None:
+        super().__init__(n_inputs, n_outputs, n_eph, function_set, one_in_one_out)
+
+        self.layers_hidden = args.layers_hidden
+        self.grid_size = args.grid_size
+        self.spline_order = args.spline_order
+        self.scale_noise = args.scale_noise
+        self.scale_base = args.scale_base
+        self.scale_spline = args.scale_spline
+        self.base_activation = args.base_activation
+        self.grid_eps = args.grid_eps
+        self.grid_range = args.grid_range

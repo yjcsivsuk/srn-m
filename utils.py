@@ -195,7 +195,7 @@ def srnet_layer_loss_with_grad(args, srnet, net, X, fn_type, merge=True):
 def pde_loss_fn(args, PDE, input_data, U):
     mse_fn = nn.MSELoss()
 
-    predict = PDE(*input_data)
+    predict = PDE(*input_data)  # KANPDE运行这个的时候报错，无法获得predict
     U_hat = predict["u_hat"]
     pd_reals, pd_hats = predict["pd_reals"], predict["pd_hats"]
     pde_out = predict["pde_out"]
