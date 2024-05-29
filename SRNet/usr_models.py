@@ -174,6 +174,7 @@ class EQLPDE(nn.Module):
         self.pde_param = pde_param
         self.pde_model = EQL(pde_param)  # 之后进行替换的时候，估计得从这里改？
 
+    # 求导
     def diff_item(self, u, x, item='x', real_u=False):
         # 如果u是神经网络的预测值，那么就求导
         if not real_u:
@@ -228,7 +229,7 @@ class EQLPDE(nn.Module):
                 pd_reals.append(pd_real)
 
         # if self.with_fu:
-        pde_out = self.pde_model(pd_hats)
+        pde_out = self.pde_model(pd_hats)  # 将pinn生成的偏微分项输入进eql中
         # else:
         #     pde_out = self.pde_model(pd_reals)
         return {

@@ -323,5 +323,5 @@ def show_img(img: torch.Tensor, row, col, title="", vmin=None, vmax=None, save_p
     plt.suptitle(title)
     if save_path is not None:
         plt.savefig(save_path)
-    plt.show()
+    # plt.show()
     plt.close()

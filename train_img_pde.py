@@ -47,7 +47,7 @@ def extract_hideen_images(
     return hidden_images
 
 
-# 个人感觉这个方法有问题，应该直接用PINN+EQL的方法来训练，而不是只用一个EQL
+# 这里只用了一个EQL。论文中提到，为了与卷积模块符号层保持一致，在解释卷积神经网络时，其全连接模块符号层中的通用公式也使用EQL来进行搜索优化，从而方便后续整体微调能够保持端到端训练。
 def train_img_pde(args):
     os.makedirs(args.out_dir, exist_ok=True)
     cur_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
