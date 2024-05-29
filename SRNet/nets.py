@@ -53,7 +53,7 @@ class BaseSRNet(nn.Module):
                 i_module = unique_CGP_layers.index(em_module)
                 CGP_layers.append(unique_CGP_layers[i_module])
             else:
-                layer = SRLayer(copy.deepcopy(self.sr_param), self.sr_class, em_module)
+                layer = SRLayer(copy.deepcopy(self.sr_param), self.sr_class, em_module)  # autopum算法划分出的模块，在SRLayer中构建不同的层，在这里组成网络
                 unique_em_modules.append(em_module)
                 unique_CGP_layers.append(layer)
                 CGP_layers.append(layer)

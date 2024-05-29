@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from torch import nn
 from SRNet.parameters import CGPParameter, EQLParameter
 from SRNet.sr_models import CGPModel, ImageCGPModel
-from SRNet.usr_models import EQL, ImageEQL, DiffCGPModel, DiffMLP
+from SRNet.usr_models import EQL, ImageEQL, DiffCGPModel, DiffMLP, KAN, KANLinear
 from SRNet.functions import *
 from load_data import load_mnist_data
 
@@ -161,7 +161,8 @@ def test_eql():
     print(f'Input:{input},Input Shape:{input.shape}')
     u = eql(input)
     print(f'U:{u},U Shape:{u.shape}')
-    ux = torch.autograd.grad(u, input, torch.ones_like(u), retain_graph=True, create_graph=True)[0]  # 因为torch.autograd.grad返回的是一个元组，取[0]只保留梯度值，去掉grad_fn梯度信息。
+    ux = torch.autograd.grad(u, input, torch.ones_like(u), retain_graph=True, create_graph=True)[
+        0]  # 因为torch.autograd.grad返回的是一个元组，取[0]只保留梯度值，去掉grad_fn梯度信息。
     print(f'Ux:{ux},Ux Shape:{ux.shape}')
 
 
@@ -195,15 +196,23 @@ def test_img_eql():
 def test_diff_mlp():
     setup_seed(6)
     diff_mlp = DiffMLP(in_features=n_inputs)
-    input_data = torch.randn(10,n_inputs,requires_grad=True)
+    input_data = torch.randn(10, n_inputs, requires_grad=True)
     print(f'Input:{input_data},Input Shape"{input_data.shape}')
     print(f'Model:{diff_mlp}')
     output = diff_mlp(input_data)
     print(f'Output:{output},Output Shape:{output.shape}')
     # 报错
-    u_x= torch.autograd.grad(output, input_data[:,0], torch.ones_like(output), retain_graph=True, create_graph=True)[0]
+    u_x = torch.autograd.grad(output, input_data[:, 0], torch.ones_like(output), retain_graph=True, create_graph=True)[
+        0]
     print(f'u_x:{u_x},u_x Shape:{u_x.shape}')
-    u_y = torch.autograd.grad(output, input_data[:,1], torch.ones_like(output), retain_graph=True, create_graph=True)[0]
+    u_y = torch.autograd.grad(output, input_data[:, 1], torch.ones_like(output), retain_graph=True, create_graph=True)[
+        0]
     print(f'u_y:{u_y},u_y Shape:{u_y.shape}')
-    u_t = torch.autograd.grad(output, input_data[:,-1], torch.ones_like(output), retain_graph=True, create_graph=True)[0]
+    u_t = torch.autograd.grad(output, input_data[:, -1], torch.ones_like(output), retain_graph=True, create_graph=True)[
+        0]
     print(f'u_t:{u_t},u_t Shape:{u_t.shape}')
+
+
+def test_kan():
+    kan = KAN([2, 2, 1])
+    print(f'kan:{kan}')
