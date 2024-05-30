@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/lihaoyang/Projects/srn-m/train_img_pde.py", line 567, in <module>
+    train_img_pde_with_kan(args)
+  File "/Users/lihaoyang/Projects/srn-m/train_img_pde.py", line 456, in train_img_pde_with_kan
+    hidden_images = extract_hideen_images(
+  File "/Users/lihaoyang/Projects/srn-m/train_img_pde.py", line 39, in extract_hideen_images
+    show_img(sample_images, 2, 2, save_path=os.path.join(args.data_dir, "sample_images.pdf"))
+  File "/Users/lihaoyang/Projects/srn-m/utils.py", line 304, in show_img
+    assert row * col == C
+AssertionError

@@ -11,7 +11,7 @@ from tqdm import tqdm
 
 from SRNet.parameters import KANParameter
 from neural_network import neural_networks
-from SRNet.usr_models import EQLParameter, EQL, EQLPDE, KANPDE
+from SRNet.usr_models import EQLParameter, EQL, EQLPDE, KANPDE, KAN
 from load_data import build_image_pde_data, load_mnist_data, build_image_from_pde_data
 from utils import get_warmup_linear_scheduler, pde_loss_fn, show_img, get_warmup_scheduler
 
@@ -82,7 +82,7 @@ def train_img_pde(args):
     row, col = 2, 3
     if args.layer_idx == 1:
         row, col = 4, 4
-    sample_ids = [1999]
+    sample_ids = [1999, 213, 3456, 92]
     hidden_images = extract_hideen_images(
         args, net, args.layer_idx, row, col, train_set,
         sample_ids=sample_ids
@@ -377,9 +377,11 @@ def train_pde_find_with_kan(args):
             losses = pde_loss_fn(args, PDE, input_data, U)  # KANPDE运行到这，然后会报错
             loss = losses["loss"]
             loss.backward()
+            # 这里梯度裁剪应该不起作用，估计可以删掉
             if args.clip_norm > 0:
                 torch.nn.utils.clip_grad.clip_grad_norm_(PDE.parameters(), args.clip_norm)
             return loss
+
         optimizer.step(closure)
         global_steps += 1
         if loss.item() < best_loss:
@@ -417,6 +419,106 @@ def train_pde_find_with_kan(args):
         writer.add_scalar("loss/train_step_pd_loss", pd_loss, epoch)
 
 
+def train_img_pde_with_kan(args):
+    os.makedirs(args.out_dir, exist_ok=True)
+    cur_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    tb_dir = os.path.join(args.out_dir, "tb", cur_time)
+    setup_seed(args.seed)
+
+    # device
+    device = torch.device(args.gpu)
+
+    # loading trained neural network
+    nn_class = neural_networks[args.nn_name]
+    net = nn_class(10)
+    net.load_state_dict(
+        torch.load(args.nn_path, map_location=device)
+    )
+    net.eval()
+
+    # Load the SR
+    param = KANParameter(
+        n_inputs=3,  # x, y, t
+        n_outputs=1,  # u
+        n_eph=0,
+        args=args,
+        function_set=None
+    )
+    SR = KAN(param)
+
+    # Load the dataset
+    train_set, val_set = load_mnist_data(args.data_dir)
+    # layer_idx = 0
+    row, col = 2, 3
+    if args.layer_idx == 1:
+        row, col = 4, 4
+    sample_ids = [1999, 213, 3456, 92]
+    hidden_images = extract_hideen_images(
+        args, net, args.layer_idx, row, col, train_set,
+        sample_ids=sample_ids
+    )
+    sample_size, time_steps, x_steps, y_steps = hidden_images.size()
+    print("Hidden Images Shape:", hidden_images.shape)
+
+    # Build the dataset
+    input_data, U = build_image_pde_data(
+        hidden_images,
+        x_range=(-1, 1),
+        y_range=(-1, 1),
+        t_range=(0, 1)
+    )
+    input_data = input_data.reshape(-1, input_data.size(-1))
+    X, Y, T = input_data[:, 0], input_data[:, 1], input_data[:, 2]
+    U = U.reshape(-1)
+
+    print(SR)
+    print("Input data shape:", input_data.shape, "U shape:", U.shape)
+
+    # Train the SR
+    SR = SR.to(device)
+    optimizer = torch.optim.AdamW(SR.parameters(), lr=args.lr)
+    writer = SummaryWriter(tb_dir)
+    loss_fn = nn.MSELoss()
+    tqbar = tqdm(range(args.epoch), desc="Train SR", total=args.epoch)
+    input_data = input_data.to(device)
+    U = U.to(device)
+    best_loss = float("inf")
+    global_steps = 0
+    for epoch in tqbar:
+        def closure():
+            global loss, regularization
+            optimizer.zero_grad()
+            U_hat = SR(input_data).squeeze()
+            loss = loss_fn(U_hat, U)
+            regularization = SR.regularization_loss()
+            # loss += regularization
+            loss.backward()
+            return loss
+
+        optimizer.step(closure)
+        global_steps += 1
+        if loss < best_loss:
+            best_loss = loss
+            torch.save(SR.state_dict(), os.path.join(args.out_dir, "SR.pt"))
+            if global_steps % args.save_steps == 0:
+                with torch.no_grad():
+                    U_pred = SR(input_data).squeeze().cpu()
+                img_pred = build_image_from_pde_data(U_pred, sample_size, time_steps, x_steps, y_steps)
+                for i, sample_id in enumerate(sample_ids):
+                    show_img(
+                        img_pred[i], row, col,
+                        f"Predicted SR Hidden {args.layer_idx}",
+                        save_path=os.path.join(
+                            args.out_dir,
+                            f"pred_sample{sample_id}_hidden_{args.layer_idx}.pdf"
+                        )
+                    )
+
+        tqbar.set_postfix(step_loss=loss.item(), step_regularization=regularization.item())
+        writer.add_scalar("loss/train_step_loss", loss.item(), epoch)
+        writer.add_scalar("loss/train_step_regular", regularization.item(), epoch)
+
+
 if __name__ == "__main__":
 
     def boolean_str(s):
@@ -444,7 +546,8 @@ if __name__ == "__main__":
     parser.add_argument("--clip_norm", type=float, default=1.0)
 
     # KAN PDE Find
-    parser.add_argument("--pde_find_with_kan", type=boolean_str, default="True")
+    parser.add_argument("--pde_find_with_kan", type=boolean_str, default="False")
+    parser.add_argument("--img_pde_find_with_kan", type=boolean_str, default="True")
     parser.add_argument("--layers_hidden", type=list, default=[3, 3, 1])
     parser.add_argument("--grid_size", type=int, default=5)
     parser.add_argument("--spline_order", type=int, default=3)
@@ -460,8 +563,9 @@ if __name__ == "__main__":
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--gpu", type=str, default="cpu")
     args = parser.parse_args()
-
-    if args.pde_find_with_kan:
+    if args.img_pde_find_with_kan:
+        train_img_pde_with_kan(args)
+    elif args.pde_find_with_kan:
         train_pde_find_with_kan(args)
     elif args.pde_find:
         train_pde_find(args)

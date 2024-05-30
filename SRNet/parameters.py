@@ -114,6 +114,7 @@ class KANParameter(BaseSRParameter):
     ) -> None:
         super().__init__(n_inputs, n_outputs, n_eph, function_set, one_in_one_out)
 
+        self.n_layer = args.n_layers  # pinn隐藏层的数量
         self.layers_hidden = args.layers_hidden
         self.grid_size = args.grid_size
         self.spline_order = args.spline_order

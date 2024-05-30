@@ -4,18 +4,18 @@ gpu=cpu
 seed=42
 
 pde_find_with_kan=True
-n_layers=3
-# layers_hidden=[3,3,1]
-grid_size=20
+with_fu=False
+n_layers=5  # pinn隐藏层的数量
+# layers_hidden=[3,3,1]  # kan网络的结构
+grid_size=5
 spline_order=3
 scale_noise=0.1
 scale_base=1.0
 scale_spline=1.0
 grid_eps=0.02
-epoch=3000
-layer_idx=0
-with_fu=False
-lr=1e-2
+epoch=1000
+layer_idx=1
+lr=1e-1
 optim=AdamW
 
 out_dir=output/find-pde_with_kan/${n_layers}layers-li${layer_idx}-gs${grid_size}-opt${optim}-lr${lr}-ep${epoch}

@@ -709,7 +709,7 @@ class KANPDE(nn.Module):
         else:
             self.u_model = DiffMLP(
                 sr_param.n_inputs + sr_param.n_eph,
-                n_layer=len(sr_param.layers_hidden)-1
+                n_layer=sr_param.n_layer
             )
 
         self.pd_lib = pd_lib
