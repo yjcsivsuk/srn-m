@@ -7,16 +7,16 @@ pde_find_with_kan=True
 with_fu=False
 n_layers=5  # pinn隐藏层的数量
 # layers_hidden=[3,3,1]  # kan网络的结构
-grid_size=5
+grid_size=3
 spline_order=3
 scale_noise=0.1
 scale_base=1.0
 scale_spline=1.0
 grid_eps=0.02
-epoch=1000
-layer_idx=1
-lr=1e-1
-optim=AdamW
+epoch=5000
+layer_idx=0
+lr=5e-3
+optim=Adam
 
 out_dir=output/find-pde_with_kan/${n_layers}layers-li${layer_idx}-gs${grid_size}-opt${optim}-lr${lr}-ep${epoch}
 mkdir -p ${out_dir}

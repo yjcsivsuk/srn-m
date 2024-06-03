@@ -36,19 +36,20 @@ def extract_hideen_images(
     sample_images = torch.cat([
         train_set[i][0] for i in sample_ids
     ], dim=0)
-    show_img(sample_images, 2, 2, save_path=os.path.join(args.data_dir, "sample_images.pdf"))
+    # show_img(sample_images, 2, 2, save_path=os.path.join(args.data_dir, "sample_images.pdf"))
 
     sample_images = sample_images.unsqueeze(dim=1)
     with torch.no_grad():
         hidden_images = net(sample_images)[layer_idx]
 
-    for i, sample_id in enumerate(sample_ids):
-        show_img(hidden_images[i], row, col, f"Real LeNet-5 Hidden {layer_idx}",
-                 save_path=os.path.join(args.data_dir, f"real_sample{sample_id}_hidden_{layer_idx}.pdf"))
+    # for i, sample_id in enumerate(sample_ids):
+    #     show_img(hidden_images[i], row, col, f"Real LeNet-5 Hidden {layer_idx}",
+    #              save_path=os.path.join(args.data_dir, f"real_sample{sample_id}_hidden_{layer_idx}.pdf"))
     return hidden_images
 
 
 # 这里只用了一个EQL。论文中提到，为了与卷积模块符号层保持一致，在解释卷积神经网络时，其全连接模块符号层中的通用公式也使用EQL来进行搜索优化，从而方便后续整体微调能够保持端到端训练。
+# 但是总觉得不太对，没明白这一步是在干什么。省略掉pinn，直接用eql？
 def train_img_pde(args):
     os.makedirs(args.out_dir, exist_ok=True)
     cur_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
@@ -72,7 +73,7 @@ def train_img_pde(args):
         n_outputs=1,  # u
         n_eph=0,
         args=args,
-        function_set=["add", "mul", "sin", "cos", "square", "log", "cube"]
+        function_set=["add", "mul", "sin", "cos", "square", "log"]
     )
     SR = EQL(param)
 
@@ -82,7 +83,7 @@ def train_img_pde(args):
     row, col = 2, 3
     if args.layer_idx == 1:
         row, col = 4, 4
-    sample_ids = [1999, 213, 3456, 92]
+    sample_ids = [1999, 1999, 1999, 1999]
     hidden_images = extract_hideen_images(
         args, net, args.layer_idx, row, col, train_set,
         sample_ids=sample_ids
@@ -365,7 +366,7 @@ def train_pde_find_with_kan(args):
 
     # Train the PDE
     PDE = PDE.to(device)
-    optimizer = torch.optim.AdamW(PDE.parameters(), lr=args.lr)
+    optimizer = torch.optim.Adam(PDE.parameters(), lr=args.lr)
     writer = SummaryWriter(tb_dir)
     tqbar = tqdm(range(args.epoch), desc="Train PDE Find", total=args.epoch)
     best_loss = float("inf")
@@ -378,8 +379,8 @@ def train_pde_find_with_kan(args):
             loss = losses["loss"]
             loss.backward()
             # 这里梯度裁剪应该不起作用，估计可以删掉
-            if args.clip_norm > 0:
-                torch.nn.utils.clip_grad.clip_grad_norm_(PDE.parameters(), args.clip_norm)
+            # if args.clip_norm > 0:
+            #     torch.nn.utils.clip_grad.clip_grad_norm_(PDE.parameters(), args.clip_norm)
             return loss
 
         optimizer.step(closure)
@@ -452,7 +453,7 @@ def train_img_pde_with_kan(args):
     row, col = 2, 3
     if args.layer_idx == 1:
         row, col = 4, 4
-    sample_ids = [1999, 213, 3456, 92]
+    sample_ids = [1999, 1999, 1999, 1999]
     hidden_images = extract_hideen_images(
         args, net, args.layer_idx, row, col, train_set,
         sample_ids=sample_ids
@@ -476,7 +477,7 @@ def train_img_pde_with_kan(args):
 
     # Train the SR
     SR = SR.to(device)
-    optimizer = torch.optim.AdamW(SR.parameters(), lr=args.lr)
+    optimizer = torch.optim.Adam(SR.parameters(), lr=args.lr)
     writer = SummaryWriter(tb_dir)
     loss_fn = nn.MSELoss()
     tqbar = tqdm(range(args.epoch), desc="Train SR", total=args.epoch)
@@ -491,7 +492,8 @@ def train_img_pde_with_kan(args):
             U_hat = SR(input_data).squeeze()
             loss = loss_fn(U_hat, U)
             regularization = SR.regularization_loss()
-            # loss += regularization
+            if args.weight_decay > 0:
+                loss += args.weight_decay * regularization
             loss.backward()
             return loss
 
@@ -547,7 +549,7 @@ if __name__ == "__main__":
 
     # KAN PDE Find
     parser.add_argument("--pde_find_with_kan", type=boolean_str, default="False")
-    parser.add_argument("--img_pde_find_with_kan", type=boolean_str, default="True")
+    parser.add_argument("--img_pde_find_with_kan", type=boolean_str, default="False")
     parser.add_argument("--layers_hidden", type=list, default=[3, 3, 1])
     parser.add_argument("--grid_size", type=int, default=5)
     parser.add_argument("--spline_order", type=int, default=3)
