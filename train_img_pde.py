@@ -467,7 +467,7 @@ def train_pde_find_with_kan(args):
 
     # Train the PDE
     PDE = PDE.to(device)
-    optimizer = torch.optim.Adam(PDE.parameters(), lr=args.lr)
+    optimizer = torch.optim.LBFGS(PDE.parameters(), lr=args.lr, line_search_fn="strong_wolfe")
     writer = SummaryWriter(tb_dir)
     tqbar = tqdm(range(args.epoch), desc="Train PDE Find", total=args.epoch)
     best_loss = float("inf")
