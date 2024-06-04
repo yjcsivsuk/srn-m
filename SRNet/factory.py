@@ -1,6 +1,7 @@
+import sys
+sys.path.append("/Users/lihaoyang/Projects/srn-m/SRNet")
 import random
-
-from SRNet.parameters import CGPParameter
+from parameters import CGPParameter
 
 
 # CGP中结点的定义

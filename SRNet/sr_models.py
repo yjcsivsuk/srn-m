@@ -1,3 +1,5 @@
+import sys
+sys.path.append("/Users/lihaoyang/Projects/srn-m/SRNet")
 import torch
 import random
 import sympy as sp

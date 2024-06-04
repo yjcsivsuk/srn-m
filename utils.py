@@ -223,6 +223,37 @@ def pde_loss_fn(args, PDE, input_data, U):
     }
 
 
+def pinn_loss(args, ImgPINN, input_data, U):
+    mse_fn = nn.MSELoss()
+
+    predict = ImgPINN(*input_data)  # KANPDE运行这个的时候报错，无法获得predict
+    U_hat = predict["u_hat"]
+    pd_reals, pd_hats = predict["pd_reals"], predict["pd_hats"]
+    # pde_out = predict["pde_out"]
+
+    u_loss = mse_fn(U_hat.squeeze(), U.flatten())
+    if pd_reals and pd_hats is not None:
+        pd_loss = torch.tensor(0., device=args.gpu)
+        for pd_real, pd_hat in zip(pd_reals, pd_hats):
+            pd_loss += mse_fn(pd_real, pd_hat)
+    # pde_loss = torch.mean(torch.abs(pde_out.flatten()))
+    # regularizations = torch.tensor(0., device=args.gpu)
+    # if args.weight_decay > 0:
+    #     regularizations = PDE.regularization()
+
+    loss = u_loss + args.pd_weight * pd_loss \
+           # + args.pde_weight * pde_loss \
+           # + args.weight_decay * regularizations
+
+    return {
+        "u_loss": u_loss,  # 通过PINN神经网络预测的u^hat和真实的u之间的loss
+        "pd_loss": pd_loss,  # 通过PINN神经网络预测的ux^hat和输入进PINN的ux之间的loss
+        # "pde_loss": pde_loss,  # 偏微分项经过EQL出来之后的结果，限制其为0的惩罚项
+        # "regularization": regularizations,  # EQL的L1正则化惩罚项
+        "loss": loss  # 上述loss加权和，作为卷积模块符号层的总体loss
+    }
+
+
 loss_map = {
     "mse": mse_loss,
     "kl": kl_divergence,
