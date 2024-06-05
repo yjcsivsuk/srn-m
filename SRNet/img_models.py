@@ -7,13 +7,13 @@ sys.path.append("/Users/lihaoyang/Projects/srn-m/SRNet")
 import torch
 from torch import nn
 from parameters import KANParameter
-from usr_models import DiffMLP, KAN, KANLinear
+from usr_models import KAN, KANLinear
 from functions import img_dx, img_dy
-from utils import pde_loss_fn  # 要修改loss的计算方式，把这个拆成两部分
+from utils import pinn_loss, kan_loss  # 要修改loss的计算方式，把原先EQLPDE的loss函数拆成两部分
 
 
-class ImagePINN(nn.Module):
-    def __init__(self, in_features=5, n_layer=5, hidden_size=100, pd_lib=['dx', 'dy', 'dxdy']) -> None:
+class PINN(nn.Module):
+    def __init__(self,  n_layer, in_features=5, hidden_size=100, pd_lib=['dx', 'dy', 'dxdy']) -> None:
         super().__init__()
         self.in_features = in_features
         self.n_layer = n_layer
@@ -55,10 +55,9 @@ class ImagePINN(nn.Module):
         return di
 
     def forward(self, x, y, t, dx, dy, u_real=None):
-        input_data = [x, y, t, dx, dy]
-
-        u_hat = self.model(input_data)  # pinn的输出u^hat
-
+        input_data_list = [x, y, t, dx, dy]
+        input_data = torch.stack(input_data_list, dim=-1)
+        u_hat = self.model(input_data).squeeze()  # pinn的输出u^hat
         pd_reals = []  # 真实的ux和uy
         pd_hats = []  # 经过pinn后得到的偏微分项ux^hat和uy^hat，之后要被输入进kan中
         for pd_item in self.pd_lib:
@@ -67,16 +66,10 @@ class ImagePINN(nn.Module):
             if u_real is not None:
                 pd_real = self.build_pde_lib(x, y, t, u_real, pd_item, real_u=True)
                 pd_reals.append(pd_real)
-
         # pde_out = self.pde_model(pd_hats)  # kan要做的事
-
         return {
             "u_hat": u_hat,
             "pd_reals": pd_reals,
-            "pd_hats": pd_hats,
+            "pd_hats": pd_hats
         }
 
-
-if __name__ == '__main__':
-    img_pinn = ImagePINN()
-    print(img_pinn)
