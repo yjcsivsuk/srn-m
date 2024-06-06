@@ -467,7 +467,13 @@ def train_pde_find_with_kan(args):
 
     # Train the PDE
     PDE = PDE.to(device)
-    optimizer = torch.optim.LBFGS(PDE.parameters(), lr=args.lr, line_search_fn="strong_wolfe")
+    optimizer = None
+    if args.optim == "LBFGS":
+        optimizer = torch.optim.LBFGS(PDE.parameters(), lr=args.lr, line_search_fn="strong_wolfe")
+    if args.optim == "Adam":
+        optimizer = torch.optim.Adam(PDE.parameters(), lr=args.lr)
+    if args.optim == "AdamW":
+        optimizer = torch.optim.AdamW(PDE.parameters(), lr=args.lr)
     writer = SummaryWriter(tb_dir)
     tqbar = tqdm(range(args.epoch), desc="Train PDE Find", total=args.epoch)
     best_loss = float("inf")
@@ -586,7 +592,13 @@ def train_pde_find_only_with_kan(args):
 
     # Train the PDE
     PDE = PDE.to(device)
-    optimizer = torch.optim.AdamW(PDE.parameters(), lr=args.lr)
+    optimizer = None
+    if args.optim == "LBFGS":
+        optimizer = torch.optim.LBFGS(PDE.parameters(), lr=args.lr, line_search_fn="strong_wolfe")
+    if args.optim == "Adam":
+        optimizer = torch.optim.Adam(PDE.parameters(), lr=args.lr)
+    if args.optim == "AdamW":
+        optimizer = torch.optim.AdamW(PDE.parameters(), lr=args.lr)
     writer = SummaryWriter(tb_dir)
     tqbar = tqdm(range(args.epoch), desc="Train PDE Find", total=args.epoch)
     best_loss = float("inf")
@@ -651,6 +663,7 @@ if __name__ == "__main__":
     parser.add_argument("--nn_name", type=str, default="LeNet")
     parser.add_argument("--nn_path", type=str, default="./output/LeNet/LeNet")
     parser.add_argument("--layer_idx", type=int, default=0)
+    parser.add_argument("--optim", type=str, default="Adam", choices=["Adam", "LBFGS", "AdamW"])
 
     # EQL PDE Find
     parser.add_argument("--pde_find", type=boolean_str, default="True")

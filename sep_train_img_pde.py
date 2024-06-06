@@ -164,7 +164,7 @@ def train_kan(args):
     print("Hidden Images Shape:", hidden_images.shape)
 
     # Build the dataset
-    input_data = torch.load(os.path.join(args.out_dir, "PDTs.pt"), map_location=device)
+    input_data = torch.load(os.path.join(args.pinn_path, "PDTs.pt"), map_location=device)
 
     # Load the KAN
     kan_param = KANParameter(
@@ -189,7 +189,7 @@ def train_kan(args):
     if args.optim == "AdamW":
         optimizer = torch.optim.AdamW(ImagePINN.parameters(), lr=args.lr)
     writer = SummaryWriter(tb_dir)
-    tqbar = tqdm(range(args.epoch), desc="Train PINN", total=args.epoch)
+    tqbar = tqdm(range(args.epoch), desc="Train KAN", total=args.epoch)
     best_loss = float("inf")
     global_steps = 0
     k_losses = []
@@ -268,12 +268,13 @@ if __name__ == "__main__":
     parser.add_argument("--gpu", type=str, default="cpu")
 
     # train pinn
-    parser.add_argument("--pinn-train", type=boolean_str, default="False")
+    parser.add_argument("--pinn_train", type=boolean_str, default="False")
     parser.add_argument("--n_layer", type=int, default=5)
     parser.add_argument("--pd_weight", type=float, default=1.0)
 
     # train kan
-    parser.add_argument("--kan-train", type=boolean_str, default="True")
+    parser.add_argument("--kan_train", type=boolean_str, default="True")
+    parser.add_argument("--pinn_path", type=str, default="./output/sep-find-pde/test")
     parser.add_argument("--n_layers", type=int, default=5)  # pinn隐藏层的数量，在KANParameter中定义的，跟上面的n_layer参数一样，这里不定义会报错
     parser.add_argument("--layers_hidden", type=list, default=[3, 3, 1])
     parser.add_argument("--grid_size", type=int, default=5)
