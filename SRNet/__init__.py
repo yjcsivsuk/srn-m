@@ -1,5 +1,6 @@
 import sys
 sys.path.append("/Users/lihaoyang/Projects/srn-m/SRNet")
+sys.path.append("/home/lihaoyang/Code/srn-m/SRNet")
 from nets import ModuleCGPNet, ModuleEQLNet
 from sr_models import CGPModel, ImageCGPModel
 from usr_models import DiffCGPModel, EQL, ImageEQL

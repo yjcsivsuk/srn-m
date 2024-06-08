@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gpu=cpu
+gpu=cuda:0
 seed=42
 
 pde_find_only_with_kan=False
@@ -14,7 +14,7 @@ scale_noise=0.1
 scale_base=1.0
 scale_spline=1.0
 grid_eps=0.02
-epoch=10000
+epoch=20000
 layer_idx=0
 lr=3e-3
 optim=AdamW
