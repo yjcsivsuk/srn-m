@@ -14,8 +14,8 @@ scale_noise=0.1
 scale_base=1.0
 scale_spline=1.0
 grid_eps=0.02
-epoch=5000
-layer_idx=1
+epoch=10000
+layer_idx=0
 lr=3e-3
 optim=AdamW
 
