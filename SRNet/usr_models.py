@@ -31,7 +31,8 @@ class DiffMLP(nn.Module):
     def forward(self, X):
         if isinstance(X, list):
             X = torch.stack(X, dim=-1)
-        return self.model(X).squeeze()  # 用于移除tensor中最后一个大小为1的维度
+        out = self.model(X).squeeze()
+        return out  # 用于移除tensor中最后一个大小为1的维度
 
 
 class LinearProj(nn.Linear):

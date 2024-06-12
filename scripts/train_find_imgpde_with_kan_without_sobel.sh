@@ -3,8 +3,9 @@
 gpu=cpu
 seed=42
 
+pde_find_with_kan_without_sobel=True
 pde_find_only_with_kan=False
-pde_find_with_kan=True
+pde_find_with_kan=False
 with_fu=False
 n_layers=5  # pinn隐藏层的数量
 # layers_hidden=[5,5,1]  # kan网络的结构
@@ -19,7 +20,7 @@ layer_idx=0
 lr=3e-3
 optim=AdamW
 
-out_dir=output/find-pde_with_kan/${n_layers}layers-li${layer_idx}-gs${grid_size}-opt${optim}-lr${lr}-ep${epoch}
+out_dir=output/find-pde_with_kan_without_sobel/${n_layers}layers-li${layer_idx}-gs${grid_size}-opt${optim}-lr${lr}-ep${epoch}
 mkdir -p ${out_dir}
 
 nohup python train_img_pde.py \
@@ -28,6 +29,7 @@ nohup python train_img_pde.py \
     --epoch ${epoch} \
     --n_layers ${n_layers} \
     --layer_idx ${layer_idx} \
+    --pde_find_with_kan_without_sobel ${pde_find_with_kan_without_sobel} \
     --pde_find_only_with_kan ${pde_find_only_with_kan} \
     --pde_find_with_kan ${pde_find_with_kan} \
     --with_fu ${with_fu} \
