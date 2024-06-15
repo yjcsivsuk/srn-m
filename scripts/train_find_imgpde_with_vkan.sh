@@ -2,18 +2,18 @@
 
 pde_find_with_vkan=True
 # 要解释的卷积神经网络LeNet
-layer_idx=0
+layer_idx=1
 # PINN+KAN端到端训练相关参数
 with_fu=False  # 固定为False，使vKANPDE:=PINN+KAN
 n_layer=5  # pinn隐藏层数量
 pd_weight=1.0
 pde_weight=1.0
 weight_decay=1e-5
-epoch=10
-lr=1e-3
-optim=Adam
+epoch=10000
+lr=5e-3
+optim=AdamW
 # KAN模型相关参数
-grid=3
+grid=5
 k=3
 noise_scale=0.1
 noise_scale_base=0.1
@@ -22,8 +22,8 @@ bias_trainable=True
 grid_eps=0.02
 sp_trainable=True
 sb_trainable=True
-device=cpu
-gpu=cpu
+device=cuda:0
+gpu=cuda:0
 out_dir=output/find-pde_with_vkan/${n_layer}layers-li${layer_idx}-gs${grid}-opt${optim}-lr${lr}-ep${epoch}
 
 mkdir -p ${out_dir}
