@@ -30,6 +30,7 @@ class DiffMLP(nn.Module):
 
     def forward(self, X):
         if isinstance(X, list):
+            # (x, y, t, dx, dy)
             X = torch.stack(X, dim=-1)
         out = self.model(X).squeeze()
         return out  # 用于移除tensor中最后一个大小为1的维度
@@ -686,7 +687,7 @@ class KAN(nn.Module):
 
     def forward(self, x: list or torch.Tensor, update_grid=False):
         if isinstance(x, list):
-            # (B, C, H_out, W_out, nvar)
+            # pd_hats(list:3): (dx,dy,dxdy)
             x = torch.stack(x, dim=-1)
         for layer in self.layers:
             if update_grid:

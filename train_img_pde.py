@@ -789,7 +789,7 @@ if __name__ == "__main__":
     parser.add_argument("--optim", type=str, default="Adam", choices=["Adam", "LBFGS", "AdamW"])
 
     # EQL PDE Find
-    parser.add_argument("--pde_find", type=boolean_str, default="True")
+    parser.add_argument("--pde_find", type=boolean_str, default="False")
     parser.add_argument("--with_fu", type=boolean_str, default="False")
     parser.add_argument("--pd_weight", type=float, default=1.0)
     parser.add_argument("--pde_weight", type=float, default=1.0)
@@ -803,7 +803,7 @@ if __name__ == "__main__":
     parser.add_argument("--clip_norm", type=float, default=1.0)
 
     # KAN PDE Find
-    parser.add_argument("--pde_find_with_kan_without_sobel", type=boolean_str, default="True")
+    parser.add_argument("--pde_find_with_kan_without_sobel", type=boolean_str, default="False")
     parser.add_argument("--pde_find_with_kan", type=boolean_str, default="True")
     parser.add_argument("--pde_find_only_with_kan", type=boolean_str, default="False")
     parser.add_argument("--img_pde_find_with_kan", type=boolean_str, default="False")
@@ -817,7 +817,7 @@ if __name__ == "__main__":
     parser.add_argument("--grid_eps", type=float, default=0.02)
     parser.add_argument("--grid_range", type=list, default=[-1, 1])
 
-    parser.add_argument("--out_dir", type=str, default="./output/find_pde_with_kan_without_sobel/est")
+    parser.add_argument("--out_dir", type=str, default="./output/find_pde_with_kan_without_sobel/test")
     parser.add_argument("--save_steps", type=int, default=10)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--gpu", type=str, default="cpu")

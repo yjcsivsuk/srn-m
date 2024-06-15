@@ -237,4 +237,4 @@ def test_kan():
     kan = KAN(kan_param)
     print(kan)
     y = kan(X)
-    print(y, y.shape)
+    print(X.shape, y.shape)
