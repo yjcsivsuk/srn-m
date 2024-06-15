@@ -8,7 +8,7 @@ import sympy as sp
 import numpy as np
 from torch import Tensor, nn
 import torch.linalg
-from parameters import CGPParameter, EQLParameter, KANParameter
+from parameters import CGPParameter, EQLParameter, eKANParameter
 from sr_models import CGPModel
 from functions import img_dx, img_dy
 
@@ -425,7 +425,7 @@ class DiffImageCGPModel(DiffCGPModel):
         return selected
 
 
-class KANLinear(nn.Module):
+class eKANLinear(nn.Module):
     def __init__(
             self,
             in_features,
@@ -440,7 +440,7 @@ class KANLinear(nn.Module):
             grid_eps=0.02,
             grid_range=[-1, 1],
     ):
-        super(KANLinear, self).__init__()
+        super(eKANLinear, self).__init__()
         self.in_features = in_features
         self.out_features = out_features
         self.grid_size = grid_size
@@ -661,9 +661,9 @@ class KANLinear(nn.Module):
         )
 
 
-class KAN(nn.Module):
-    def __init__(self, sr_param: KANParameter):
-        super(KAN, self).__init__()
+class eKAN(nn.Module):
+    def __init__(self, sr_param: eKANParameter):
+        super(eKAN, self).__init__()
         self.grid_size = sr_param.grid_size
         self.spline_order = sr_param.spline_order
         layers_hidden = sr_param.layers_hidden
@@ -671,7 +671,7 @@ class KAN(nn.Module):
         self.layers = torch.nn.ModuleList()
         for in_features, out_features in zip(layers_hidden, layers_hidden[1:]):
             self.layers.append(
-                KANLinear(
+                eKANLinear(
                     in_features,
                     out_features,
                     grid_size=sr_param.grid_size,
@@ -702,14 +702,14 @@ class KAN(nn.Module):
         )
 
 
-class KANPDE(nn.Module):
-    def __init__(self, sr_param: KANParameter, with_fu=False, pd_lib=['dx', 'dy', 'dxdy']) -> None:
+class eKANPDE(nn.Module):
+    def __init__(self, sr_param: eKANParameter, with_fu=False, pd_lib=['dx', 'dy', 'dxdy']) -> None:
         super().__init__()
         self.sr_param = sr_param
         self.u_model = None
         self.with_fu = with_fu
         if with_fu:
-            self.u_model = KAN(sr_param)
+            self.u_model = eKAN(sr_param)
         else:
             self.u_model = DiffMLP(
                 sr_param.n_inputs + sr_param.n_eph,
@@ -724,7 +724,7 @@ class KANPDE(nn.Module):
         # # important: strict `n_layers` as 1
         # pde_param.n_layers = 1
         self.pde_param = pde_param
-        self.pde_model = KAN(pde_param)  # 之后进行替换的时候，估计得从这里改？
+        self.pde_model = eKAN(pde_param)  # 之后进行替换的时候，估计得从这里改？
 
     # 求导
     def diff_item(self, u, x, item='x', real_u=False):
@@ -802,17 +802,17 @@ class KANPDE(nn.Module):
         return reg
 
 
-class KANKAN(nn.Module):
-    def __init__(self, sr_param: KANParameter, with_fu=False, pd_lib=['dx', 'dy', 'dxdy']) -> None:
+class eKANeKAN(nn.Module):
+    def __init__(self, sr_param: eKANParameter, with_fu=False, pd_lib=['dx', 'dy', 'dxdy']) -> None:
         super().__init__()
         self.sr_param = sr_param
         self.u_model = None
         self.with_fu = with_fu
         # if with_fu:
-        #     self.u_model = KAN(sr_param)
+        #     self.u_model = eKAN(sr_param)
         # else:
-        #     self.u_model = KAN(sr_param)
-        self.u_model = KAN(sr_param)
+        #     self.u_model = eKAN(sr_param)
+        self.u_model = eKAN(sr_param)
 
         self.pd_lib = pd_lib
         pde_param = copy.deepcopy(sr_param)
@@ -823,7 +823,7 @@ class KANKAN(nn.Module):
         # # important: strict `n_layers` as 1
         # pde_param.n_layers = 1
         self.pde_param = pde_param
-        self.pde_model = KAN(pde_param)  # 之后进行替换的时候，估计得从这里改？
+        self.pde_model = eKAN(pde_param)  # 之后进行替换的时候，估计得从这里改？
 
     # 求导
     def diff_item(self, u, x, item='x', real_u=False):

@@ -102,7 +102,7 @@ class EQLParameter(BaseSRParameter):
         self.hidden_in_size = n_arities
 
 
-class KANParameter(BaseSRParameter):
+class eKANParameter(BaseSRParameter):
     def __init__(
             self,
             n_inputs,

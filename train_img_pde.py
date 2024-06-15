@@ -10,11 +10,11 @@ from torch import nn
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 
-from SRNet.parameters import KANParameter
+from SRNet.parameters import eKANParameter
 from neural_network import neural_networks
-from SRNet.usr_models import EQLParameter, EQL, EQLPDE, KANPDE, KAN, KANKAN
+from SRNet.usr_models import EQLParameter, EQL, EQLPDE, eKANPDE, eKAN, eKANeKAN
 from load_data import build_image_pde_data, load_mnist_data, build_image_from_pde_data
-from utils import get_warmup_linear_scheduler, pde_loss_fn, show_img, get_warmup_scheduler
+from utils import pde_loss_fn, show_img, get_warmup_scheduler
 
 
 def setup_seed(seed):
@@ -188,14 +188,14 @@ def train_img_pde_with_kan(args):
     net.eval()
 
     # Load the SR
-    param = KANParameter(
+    param = eKANParameter(
         n_inputs=3,  # x, y, t
         n_outputs=1,  # u
         n_eph=0,
         args=args,
         function_set=None
     )
-    SR = KAN(param)
+    SR = eKAN(param)
 
     # Load the dataset
     train_set, val_set = load_mnist_data(args.data_dir)
@@ -455,13 +455,13 @@ def train_pde_find_with_kan(args):
     input_data = [X, Y, T, dX, dY, U]
 
     # Load the SR
-    param = KANParameter(
+    param = eKANParameter(
         n_inputs=len(input_data) - 1,  # x, y, t, dx?, dy?
         n_outputs=1,  # u
         n_eph=0,
         args=args
     )
-    PDE = KANPDE(param, with_fu=args.with_fu)
+    PDE = eKANPDE(param, with_fu=args.with_fu)
 
     print(PDE)
     print("Input data shape:", len(input_data), X.shape, "U shape:", U.shape)
@@ -581,13 +581,13 @@ def train_pde_find_with_kan_without_sobel(args):
     input_data = [X, Y, T, dX, dY, U]
 
     # Load the SR
-    param = KANParameter(
+    param = eKANParameter(
         n_inputs=3,  # x, y, t
         n_outputs=1,  # u
         n_eph=0,
         args=args
     )
-    PDE = KANPDE(param, with_fu=args.with_fu)
+    PDE = eKANPDE(param, with_fu=args.with_fu)
 
     print(PDE)
     print("Input data shape:", len(input_data), X.shape, "U shape:", U.shape)
@@ -702,13 +702,13 @@ def train_pde_find_only_with_kan(args):
     input_data = [X, Y, T, dX, dY, U]
 
     # Load the SR
-    param = KANParameter(
+    param = eKANParameter(
         n_inputs=len(input_data) - 1,  # x, y, t, dx?, dy?
         n_outputs=1,  # u
         n_eph=0,
         args=args
     )
-    PDE = KANKAN(param, with_fu=args.with_fu)
+    PDE = eKANeKAN(param, with_fu=args.with_fu)
 
     print(PDE)
     print("Input data shape:", len(input_data), X.shape, "U shape:", U.shape)
