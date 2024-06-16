@@ -115,7 +115,7 @@ class eKANParameter(BaseSRParameter):
         super().__init__(n_inputs, n_outputs, n_eph, function_set, one_in_one_out)
 
         self.n_layer = args.n_layers  # pinn隐藏层的数量
-        self.layers_hidden = args.layers_hidden  # 用kan代替eql
+        self.layers_hidden = args.layers_hidden  # 用ekan代替eql
         self.grid_size = args.grid_size
         self.spline_order = args.spline_order
         self.scale_noise = args.scale_noise
@@ -124,3 +124,32 @@ class eKANParameter(BaseSRParameter):
         self.base_activation = args.base_activation
         self.grid_eps = args.grid_eps
         self.grid_range = args.grid_range
+
+
+class vKANParameter(BaseSRParameter):
+    def __init__(
+            self,
+            n_inputs,
+            n_outputs,
+            n_eph,
+            args,
+            function_set=None,
+            one_in_one_out=False,
+    ) -> None:
+        super().__init__(n_inputs, n_outputs, n_eph, function_set, one_in_one_out)
+
+        self.n_layer = args.n_layers  # pinn隐藏层的数量
+        self.width = args.width  # 用vkan代替eql
+        self.grid = args.grid
+        self.k = args.k
+        self.noise_scale = args.noise_scale
+        self.noise_scale_base = args.noise_scale_base
+        self.base_fun = args.base_fun
+        self.symbolic_enabled = args.symbolic_enabled
+        self.bias_trainable = args.bias_trainable
+        self.grid_eps = args.grid_eps
+        self.grid_range = args.grid_range
+        self.sp_trainable = args.sp_trainable
+        self.sb_trainable = args.sb_trainable
+        self.device = args.device
+        self.seed = args.seed

@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import numpy as np
+
 from .KANLayer import *
 from .Symbolic_KANLayer import *
 from .LBFGS import *
@@ -11,9 +12,12 @@ from tqdm import tqdm
 import random
 import copy
 
+from SRNet.parameters import vKANParameter
+
 '''
 KAN.py:包括定义KAN模型的主要类或函数。由多个KANLayer和Symbolic_KANLayer组成。支持前向传播、搜索模式设置、符号激活函数的固定和建议、模型训练、剪枝、可视化等功能。
 '''
+
 
 class KAN(nn.Module):
     '''
@@ -80,8 +84,22 @@ class KAN(nn.Module):
             obtain the symbolic formula of the KAN network
     '''
 
-    def __init__(self, width=None, grid=3, k=3, noise_scale=0.1, noise_scale_base=0.1, base_fun=torch.nn.SiLU(), symbolic_enabled=True, bias_trainable=True, grid_eps=1.0, grid_range=[-1, 1], sp_trainable=True, sb_trainable=True,
-                 device='cpu', seed=0):
+    def __init__(self, sr_param: vKANParameter
+                 # width=None,
+                 # grid=3,
+                 # k=3,
+                 # noise_scale=0.1,
+                 # noise_scale_base=0.1,
+                 # base_fun=torch.nn.SiLU(),
+                 # symbolic_enabled=True,
+                 # bias_trainable=True,
+                 # grid_eps=1.0,
+                 # grid_range=[-1, 1],
+                 # sp_trainable=True,
+                 # sb_trainable=True,
+                 # device='cpu',
+                 # seed=0
+                 ):
         '''
         initalize a KAN model
         
@@ -126,46 +144,53 @@ class KAN(nn.Module):
         '''
         super(KAN, self).__init__()
 
-        torch.manual_seed(seed)
-        np.random.seed(seed)
-        random.seed(seed)
+        self.sr_param = sr_param
+        torch.manual_seed(sr_param.seed)
+        np.random.seed(sr_param.seed)
+        random.seed(sr_param.seed)
 
         ### initializeing the numerical front ###
 
         self.biases = []
         self.act_fun = []
-        self.depth = len(width) - 1
-        self.width = width
+        self.depth = len(sr_param.width) - 1
+        self.width = sr_param.width
 
         for l in range(self.depth):
             # splines
-            scale_base = 1 / np.sqrt(width[l]) + (torch.randn(width[l] * width[l + 1], ) * 2 - 1) * noise_scale_base
-            sp_batch = KANLayer(in_dim=width[l], out_dim=width[l + 1], num=grid, k=k, noise_scale=noise_scale, scale_base=scale_base, scale_sp=1., base_fun=base_fun, grid_eps=grid_eps, grid_range=grid_range, sp_trainable=sp_trainable,
-                                sb_trainable=sb_trainable, device=device)
+            scale_base = 1 / np.sqrt(sr_param.width[l]) + (
+                        torch.randn(sr_param.width[l] * sr_param.width[l + 1], ) * 2 - 1) * sr_param.noise_scale_base
+            sp_batch = KANLayer(in_dim=sr_param.width[l], out_dim=sr_param.width[l + 1], num=sr_param.grid,
+                                k=sr_param.k, noise_scale=sr_param.noise_scale, scale_base=scale_base, scale_sp=1.,
+                                base_fun=sr_param.base_fun, grid_eps=sr_param.grid_eps, grid_range=sr_param.grid_range,
+                                sp_trainable=sr_param.sp_trainable,
+                                sb_trainable=sr_param.sb_trainable, device=sr_param.device)
             self.act_fun.append(sp_batch)
 
             # bias
-            bias = nn.Linear(width[l + 1], 1, bias=False, device=device).requires_grad_(bias_trainable)
+            bias = nn.Linear(sr_param.width[l + 1], 1, bias=False, device=sr_param.device).requires_grad_(
+                sr_param.bias_trainable)
             bias.weight.data *= 0.
             self.biases.append(bias)
 
         self.biases = nn.ModuleList(self.biases)
         self.act_fun = nn.ModuleList(self.act_fun)
 
-        self.grid = grid
-        self.k = k
-        self.base_fun = base_fun
+        self.grid = sr_param.grid
+        self.k = sr_param.k
+        self.base_fun = sr_param.base_fun
 
         ### initializing the symbolic front ###
         self.symbolic_fun = []
         for l in range(self.depth):
-            sb_batch = Symbolic_KANLayer(in_dim=width[l], out_dim=width[l + 1], device=device)
+            sb_batch = Symbolic_KANLayer(in_dim=sr_param.width[l], out_dim=sr_param.width[l + 1],
+                                         device=sr_param.device)
             self.symbolic_fun.append(sb_batch)
 
         self.symbolic_fun = nn.ModuleList(self.symbolic_fun)
-        self.symbolic_enabled = symbolic_enabled
-        
-        self.device = device
+        self.symbolic_enabled = sr_param.symbolic_enabled
+
+        self.device = sr_param.device
 
     def initialize_from_another_model(self, another_model, x):
         '''
@@ -188,7 +213,7 @@ class KAN(nn.Module):
         >>> model_fine = KAN(width=[2,5,1], grid=10, k=3)
         >>> print(model_fine.act_fun[0].coef[0][0].data)
         >>> x = torch.normal(0,1,size=(100,2))
-        >>> model_fine.initialize_from_another_model(model_coarse, x);
+        >>> model_fine.initialize_from_another_model(model_coarse, x)
         >>> print(model_fine.act_fun[0].coef[0][0].data)
         tensor(-0.0030)
         tensor(0.0506)
@@ -205,7 +230,9 @@ class KAN(nn.Module):
             # spb = spb_parent
             preacts = another_model.spline_preacts[l]
             postsplines = another_model.spline_postsplines[l]
-            self.act_fun[l].coef.data = curve2coef(preacts.reshape(batch, spb.size).permute(1, 0), postsplines.reshape(batch, spb.size).permute(1, 0), spb.grid, k=spb.k, device=self.device)
+            self.act_fun[l].coef.data = curve2coef(preacts.reshape(batch, spb.size).permute(1, 0),
+                                                   postsplines.reshape(batch, spb.size).permute(1, 0), spb.grid,
+                                                   k=spb.k, device=self.device)
             spb.scale_base.data = spb_parent.scale_base.data
             spb.scale_sp.data = spb_parent.scale_sp.data
             spb.mask.data = spb_parent.mask.data
@@ -361,10 +388,10 @@ class KAN(nn.Module):
             None
         '''
         if mode == "s":
-            mask_n = 0.;
+            mask_n = 0.
             mask_s = 1.
         elif mode == "n":
-            mask_n = 1.;
+            mask_n = 1.
             mask_s = 0.
         elif mode == "sn" or mode == "ns":
             if mask_n == None:
@@ -373,13 +400,14 @@ class KAN(nn.Module):
                 mask_n = mask_n
             mask_s = 1.
         else:
-            mask_n = 0.;
+            mask_n = 0.
             mask_s = 0.
 
         self.act_fun[l].mask.data[j * self.act_fun[l].in_dim + i] = mask_n
         self.symbolic_fun[l].mask.data[j, i] = mask_s
 
-    def fix_symbolic(self, l, i, j, fun_name, fit_params_bool=True, a_range=(-10, 10), b_range=(-10, 10), verbose=True, random=False):
+    def fix_symbolic(self, l, i, j, fun_name, fit_params_bool=True, a_range=(-10, 10), b_range=(-10, 10), verbose=True,
+                     random=False):
         '''
         set (l,i,j) activation to be symbolic (specified by fun_name)
         
@@ -443,7 +471,8 @@ class KAN(nn.Module):
         else:
             x = self.acts[l][:, i]
             y = self.spline_postacts[l][:, j, i]
-            r2 = self.symbolic_fun[l].fix_symbolic(i, j, fun_name, x, y, a_range=a_range, b_range=b_range, verbose=verbose)
+            r2 = self.symbolic_fun[l].fix_symbolic(i, j, fun_name, x, y, a_range=a_range, b_range=b_range,
+                                                   verbose=verbose)
             return r2
 
     def unfix_symbolic(self, l, i, j):
@@ -563,7 +592,8 @@ class KAN(nn.Module):
             print('y range: [' + '%.2f' % y_min, ',', '%.2f' % y_max, ']')
         return x_min, x_max, y_min, y_max
 
-    def plot(self, folder="./figures", beta=3, mask=False, mode="supervised", scale=0.5, tick=False, sample=False, in_vars=None, out_vars=None, title=None):
+    def plot(self, folder="./figures", beta=3, mask=False, mode="supervised", scale=0.5, tick=False, sample=False,
+             in_vars=None, out_vars=None, title=None):
         '''
         plot KAN
         
@@ -642,9 +672,12 @@ class KAN(nn.Module):
                     plt.gca().patch.set_linewidth(1.5)
                     # plt.axis('off')
 
-                    plt.plot(self.acts[l][:, i][rank].cpu().detach().numpy(), self.spline_postacts[l][:, j, i][rank].cpu().detach().numpy(), color=color, lw=5)
+                    plt.plot(self.acts[l][:, i][rank].cpu().detach().numpy(),
+                             self.spline_postacts[l][:, j, i][rank].cpu().detach().numpy(), color=color, lw=5)
                     if sample == True:
-                        plt.scatter(self.acts[l][:, i][rank].cpu().detach().numpy(), self.spline_postacts[l][:, j, i][rank].cpu().detach().numpy(), color=color, s=400 * scale ** 2)
+                        plt.scatter(self.acts[l][:, i][rank].cpu().detach().numpy(),
+                                    self.spline_postacts[l][:, j, i][rank].cpu().detach().numpy(), color=color,
+                                    s=400 * scale ** 2)
                     plt.gca().spines[:].set_color(color)
 
                     lock_id = self.act_fun[l].lock_id[j * self.width[l] + i].long().item()
@@ -711,11 +744,18 @@ class KAN(nn.Module):
                             color = "white"
                             alpha_mask = 0.
                         if mask == True:
-                            plt.plot([1 / (2 * n) + i / n, 1 / (2 * N) + id_ / N], [l * y0, (l + 1 / 2) * y0 - y1], color=color, lw=2 * scale, alpha=alpha[l][j][i] * self.mask[l][i].item() * self.mask[l + 1][j].item())
-                            plt.plot([1 / (2 * N) + id_ / N, 1 / (2 * n_next) + j / n_next], [(l + 1 / 2) * y0 + y1, (l + 1) * y0], color=color, lw=2 * scale, alpha=alpha[l][j][i] * self.mask[l][i].item() * self.mask[l + 1][j].item())
+                            plt.plot([1 / (2 * n) + i / n, 1 / (2 * N) + id_ / N], [l * y0, (l + 1 / 2) * y0 - y1],
+                                     color=color, lw=2 * scale,
+                                     alpha=alpha[l][j][i] * self.mask[l][i].item() * self.mask[l + 1][j].item())
+                            plt.plot([1 / (2 * N) + id_ / N, 1 / (2 * n_next) + j / n_next],
+                                     [(l + 1 / 2) * y0 + y1, (l + 1) * y0], color=color, lw=2 * scale,
+                                     alpha=alpha[l][j][i] * self.mask[l][i].item() * self.mask[l + 1][j].item())
                         else:
-                            plt.plot([1 / (2 * n) + i / n, 1 / (2 * N) + id_ / N], [l * y0, (l + 1 / 2) * y0 - y1], color=color, lw=2 * scale, alpha=alpha[l][j][i] * alpha_mask)
-                            plt.plot([1 / (2 * N) + id_ / N, 1 / (2 * n_next) + j / n_next], [(l + 1 / 2) * y0 + y1, (l + 1) * y0], color=color, lw=2 * scale, alpha=alpha[l][j][i] * alpha_mask)
+                            plt.plot([1 / (2 * n) + i / n, 1 / (2 * N) + id_ / N], [l * y0, (l + 1 / 2) * y0 - y1],
+                                     color=color, lw=2 * scale, alpha=alpha[l][j][i] * alpha_mask)
+                            plt.plot([1 / (2 * N) + id_ / N, 1 / (2 * n_next) + j / n_next],
+                                     [(l + 1 / 2) * y0 + y1, (l + 1) * y0], color=color, lw=2 * scale,
+                                     alpha=alpha[l][j][i] * alpha_mask)
 
             plt.xlim(0, 1)
             plt.ylim(-0.1 * y0, (neuron_depth - 1 + 0.1) * y0)
@@ -753,18 +793,25 @@ class KAN(nn.Module):
         if in_vars != None:
             n = self.width[0]
             for i in range(n):
-                plt.gcf().get_axes()[0].text(1 / (2 * (n)) + i / (n), -0.1, in_vars[i], fontsize=40 * scale, horizontalalignment='center', verticalalignment='center')
+                plt.gcf().get_axes()[0].text(1 / (2 * (n)) + i / (n), -0.1, in_vars[i], fontsize=40 * scale,
+                                             horizontalalignment='center', verticalalignment='center')
 
         if out_vars != None:
             n = self.width[-1]
             for i in range(n):
-                plt.gcf().get_axes()[0].text(1 / (2 * (n)) + i / (n), y0 * (len(self.width) - 1) + 0.1, out_vars[i], fontsize=40 * scale, horizontalalignment='center', verticalalignment='center')
+                plt.gcf().get_axes()[0].text(1 / (2 * (n)) + i / (n), y0 * (len(self.width) - 1) + 0.1, out_vars[i],
+                                             fontsize=40 * scale, horizontalalignment='center',
+                                             verticalalignment='center')
 
         if title != None:
-            plt.gcf().get_axes()[0].text(0.5, y0 * (len(self.width) - 1) + 0.2, title, fontsize=40 * scale, horizontalalignment='center', verticalalignment='center')
+            plt.gcf().get_axes()[0].text(0.5, y0 * (len(self.width) - 1) + 0.2, title, fontsize=40 * scale,
+                                         horizontalalignment='center', verticalalignment='center')
 
-    def train(self, dataset, opt="LBFGS", steps=100, log=1, lamb=0., lamb_l1=1., lamb_entropy=2., lamb_coef=0., lamb_coefdiff=0., update_grid=True, grid_update_num=10, loss_fn=None, lr=1., stop_grid_update_step=50, batch=-1,
-              small_mag_threshold=1e-16, small_reg_factor=1., metrics=None, sglr_avoid=False, save_fig=False, in_vars=None, out_vars=None, beta=3, save_fig_freq=1, img_folder='./video', device='cpu'):
+    def train(self, dataset, opt="LBFGS", steps=100, log=1, lamb=0., lamb_l1=1., lamb_entropy=2., lamb_coef=0.,
+              lamb_coefdiff=0., update_grid=True, grid_update_num=10, loss_fn=None, lr=1., stop_grid_update_step=50,
+              batch=-1,
+              small_mag_threshold=1e-16, small_reg_factor=1., metrics=None, sglr_avoid=False, save_fig=False,
+              in_vars=None, out_vars=None, beta=3, save_fig_freq=1, img_folder='./video', device='cpu'):
         '''
         training
 
@@ -819,7 +866,7 @@ class KAN(nn.Module):
         >>> model = KAN(width=[2,5,1], grid=5, k=3, noise_scale=0.1, seed=0)
         >>> f = lambda x: torch.exp(torch.sin(torch.pi*x[:,[0]]) + x[:,[1]]**2)
         >>> dataset = create_dataset(f, n_var=2)
-        >>> model.train(dataset, opt='LBFGS', steps=50, lamb=0.01);
+        >>> model.train(dataset, opt='LBFGS', steps=50, lamb=0.01)
         >>> model.plot()
         '''
 
@@ -857,7 +904,8 @@ class KAN(nn.Module):
         if opt == "Adam":
             optimizer = torch.optim.Adam(self.parameters(), lr=lr)
         elif opt == "LBFGS":
-            optimizer = LBFGS(self.parameters(), lr=lr, history_size=10, line_search_fn="strong_wolfe", tolerance_grad=1e-32, tolerance_change=1e-32, tolerance_ys=1e-32)
+            optimizer = LBFGS(self.parameters(), lr=lr, history_size=10, line_search_fn="strong_wolfe",
+                              tolerance_grad=1e-32, tolerance_change=1e-32, tolerance_ys=1e-32)
 
         results = {}
         results['train_loss'] = []
@@ -918,10 +966,13 @@ class KAN(nn.Module):
                 loss.backward()
                 optimizer.step()
 
-            test_loss = loss_fn_eval(self.forward(dataset['test_input'][test_id].to(device)), dataset['test_label'][test_id].to(device))
+            test_loss = loss_fn_eval(self.forward(dataset['test_input'][test_id].to(device)),
+                                     dataset['test_label'][test_id].to(device))
 
             if _ % log == 0:
-                pbar.set_description("train loss: %.2e | test loss: %.2e | reg: %.2e " % (torch.sqrt(train_loss).cpu().detach().numpy(), torch.sqrt(test_loss).cpu().detach().numpy(), reg_.cpu().detach().numpy()))
+                pbar.set_description("train loss: %.2e | test loss: %.2e | reg: %.2e " % (
+                torch.sqrt(train_loss).cpu().detach().numpy(), torch.sqrt(test_loss).cpu().detach().numpy(),
+                reg_.cpu().detach().numpy()))
 
             if metrics != None:
                 for i in range(len(metrics)):
@@ -963,7 +1014,7 @@ class KAN(nn.Module):
         >>> model = KAN(width=[2,5,1], grid=5, k=3, noise_scale=0.1, seed=0)
         >>> f = lambda x: torch.exp(torch.sin(torch.pi*x[:,[0]]) + x[:,[1]]**2)
         >>> dataset = create_dataset(f, n_var=2)
-        >>> model.train(dataset, opt='LBFGS', steps=50, lamb=0.01);
+        >>> model.train(dataset, opt='LBFGS', steps=50, lamb=0.01)
         >>> model.prune()
         >>> model.plot(mask=True)
         '''
@@ -990,7 +1041,14 @@ class KAN(nn.Module):
                 if i not in active_neurons[l + 1]:
                     self.remove_node(l + 1, i)
 
-        model2 = KAN(copy.deepcopy(self.width), self.grid, self.k, base_fun=self.base_fun, device=self.device)
+        another_param = copy.deepcopy(self.sr_param)
+        another_param.grid = self.grid
+        another_param.k = self.k
+        another_param.base_fun = self.base_fun
+        another_param.device = self.device
+
+        model2 = KAN(sr_param=another_param)
+        # model2 = KAN(copy.deepcopy(self.width), self.grid, self.k, base_fun=self.base_fun, device=self.device)
         model2.load_state_dict(self.state_dict())
         for i in range(len(self.acts_scale)):
             if i < len(self.acts_scale) - 1:
@@ -1068,7 +1126,7 @@ class KAN(nn.Module):
         >>> model = KAN(width=[2,5,1], grid=5, k=3, noise_scale=0.1, seed=0)
         >>> f = lambda x: torch.exp(torch.sin(torch.pi*x[:,[0]]) + x[:,[1]]**2)
         >>> dataset = create_dataset(f, n_var=2)
-        >>> model.train(dataset, opt='LBFGS', steps=50, lamb=0.01);
+        >>> model.train(dataset, opt='LBFGS', steps=50, lamb=0.01)
         >>> model = model.prune()
         >>> model(dataset['train_input'])
         >>> model.suggest_symbolic(0,0,0)
@@ -1129,7 +1187,7 @@ class KAN(nn.Module):
         >>> model = KAN(width=[2,5,1], grid=5, k=3, noise_scale=0.1, seed=0)
         >>> f = lambda x: torch.exp(torch.sin(torch.pi*x[:,[0]]) + x[:,[1]]**2)
         >>> dataset = create_dataset(f, n_var=2)
-        >>> model.train(dataset, opt='LBFGS', steps=50, lamb=0.01);
+        >>> model.train(dataset, opt='LBFGS', steps=50, lamb=0.01)
         >>> >>> model = model.prune()
         >>> model(dataset['train_input'])
         >>> model.auto_symbolic()
@@ -1144,7 +1202,7 @@ class KAN(nn.Module):
         >>> model = KAN(width=[2,5,1], grid=5, k=3, noise_scale=0.1, seed=0)
         >>> f = lambda x: torch.exp(torch.sin(torch.pi*x[:,[0]]) + x[:,[1]]**2)
         >>> dataset = create_dataset(f, n_var=2)
-        >>> model.train(dataset, opt='LBFGS', steps=50, lamb=0.01);
+        >>> model.train(dataset, opt='LBFGS', steps=50, lamb=0.01)
         >>> >>> model = model.prune()
         >>> model(dataset['train_input'])
         >>> model.auto_symbolic(lib=['exp','sin','x^2'])
@@ -1158,12 +1216,13 @@ class KAN(nn.Module):
                     if self.symbolic_fun[l].mask[j, i] > 0.:
                         print(f'skipping ({l},{i},{j}) since already symbolic')
                     else:
-                        name, fun, r2 = self.suggest_symbolic(l, i, j, a_range=a_range, b_range=b_range, lib=lib, verbose=False)
+                        name, fun, r2 = self.suggest_symbolic(l, i, j, a_range=a_range, b_range=b_range, lib=lib,
+                                                              verbose=False)
                         self.fix_symbolic(l, i, j, name, verbose=verbose > 1)
                         if verbose >= 1:
                             print(f'fixing ({l},{i},{j}) with {name}, r2={r2}')
 
-    def symbolic_formula(self, floating_digit=2, var=None, normalizer=None, simplify=False, output_normalizer = None ):
+    def symbolic_formula(self, floating_digit=2, var=None, normalizer=None, simplify=False, output_normalizer=None):
         '''
         obtain the symbolic formula
         
@@ -1189,11 +1248,11 @@ class KAN(nn.Module):
         >>> model = KAN(width=[2,5,1], grid=5, k=3, noise_scale=0.1, seed=0, grid_eps=0.02)
         >>> f = lambda x: torch.exp(torch.sin(torch.pi*x[:,[0]]) + x[:,[1]]**2)
         >>> dataset = create_dataset(f, n_var=2)
-        >>> model.train(dataset, opt='LBFGS', steps=50, lamb=0.01);
+        >>> model.train(dataset, opt='LBFGS', steps=50, lamb=0.01)
         >>> model = model.prune()
         >>> model(dataset['train_input'])
         >>> model.auto_symbolic(lib=['exp','sin','x^2'])
-        >>> model.train(dataset, opt='LBFGS', steps=50, lamb=0.00, update_grid=False);
+        >>> model.train(dataset, opt='LBFGS', steps=50, lamb=0.00, update_grid=False)
         >>> model.symbolic_formula()
         '''
         symbolic_acts = []
@@ -1250,13 +1309,12 @@ class KAN(nn.Module):
 
             assert len(output_layer) == len(means), 'output_normalizer does not match the output layer'
             assert len(output_layer) == len(stds), 'output_normalizer does not match the output layer'
-            
+
             output_layer = [(output_layer[i] * stds[i] + means[i]) for i in range(len(output_layer))]
             symbolic_acts[-1] = output_layer
 
-
-
-        self.symbolic_acts = [[ex_round(symbolic_acts[l][i]) for i in range(len(symbolic_acts[l]))] for l in range(len(symbolic_acts))]
+        self.symbolic_acts = [[ex_round(symbolic_acts[l][i]) for i in range(len(symbolic_acts[l]))] for l in
+                              range(len(symbolic_acts))]
 
         out_dim = len(symbolic_acts[-1])
         return [ex_round(symbolic_acts[-1][i]) for i in range(len(symbolic_acts[-1]))], x0

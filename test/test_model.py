@@ -1,17 +1,15 @@
 import sys
 
-import torch
-
 sys.path.append("/Users/lihaoyang/Projects/srn-m")
-
 import numpy as np
 import random
 import matplotlib.pyplot as plt
 from torch import nn
-from SRNet.parameters import CGPParameter, EQLParameter, KANParameter
+from SRNet.parameters import CGPParameter, EQLParameter, eKANParameter
 from SRNet.sr_models import CGPModel, ImageCGPModel
-from SRNet.usr_models import EQL, ImageEQL, DiffCGPModel, DiffMLP, KAN, KANLinear
+from SRNet.usr_models import EQL, ImageEQL, DiffCGPModel, DiffMLP, eKAN, eKANLinear
 from SRNet.functions import *
+from vKAN import KAN
 from load_data import load_mnist_data
 
 n_inputs = 3
@@ -223,10 +221,10 @@ def test_diff_mlp():
     print(f'u_t:{u_t},u_t Shape:{u_t.shape}')
 
 
-def test_kan():
+def test_ekan():
     setup_seed(7)
     args = Args()
-    kan_param = KANParameter(
+    kan_param = eKANParameter(
         n_inputs=args.layers_hidden[0],
         n_outputs=args.layers_hidden[-1],
         n_eph=0,
@@ -234,7 +232,18 @@ def test_kan():
         function_set=None,
         one_in_one_out=False
     )
-    kan = KAN(kan_param)
-    print(kan)
-    y = kan(X)
+    ekan = eKAN(kan_param)
+    print(ekan)
+    y = ekan(X)
     print(X.shape, y.shape)
+
+
+def test_vkan():
+    setup_seed(8)
+    args = Args()
+    vkan = KAN(width=[3, 3, 1])
+    print(vkan)
+    y = vkan(X)
+    print(X.shape, y.shape)
+    vkan.auto_symbolic()
+    print(vkan.symbolic_formula()[0][0])
