@@ -152,4 +152,3 @@ class vKANParameter(BaseSRParameter):
         self.sp_trainable = args.sp_trainable
         self.sb_trainable = args.sb_trainable
         self.device = args.device
-        self.seed = args.seed

@@ -143,11 +143,7 @@ class KAN(nn.Module):
         ((2, 5), (5, 1))
         '''
         super(KAN, self).__init__()
-
         self.sr_param = sr_param
-        torch.manual_seed(sr_param.seed)
-        np.random.seed(sr_param.seed)
-        random.seed(sr_param.seed)
 
         ### initializeing the numerical front ###
 
