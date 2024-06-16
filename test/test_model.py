@@ -5,7 +5,7 @@ import numpy as np
 import random
 import matplotlib.pyplot as plt
 from torch import nn
-from SRNet.parameters import CGPParameter, EQLParameter, eKANParameter
+from SRNet.parameters import CGPParameter, EQLParameter, eKANParameter, vKANParameter
 from SRNet.sr_models import CGPModel, ImageCGPModel
 from SRNet.usr_models import EQL, ImageEQL, DiffCGPModel, DiffMLP, eKAN, eKANLinear
 from SRNet.functions import *
@@ -33,6 +33,18 @@ class Args:
     base_activation = nn.SiLU
     grid_eps = 0.02
     grid_range = [-1, 1]
+
+    width = [3, 3, 1]
+    grid = 5
+    k = 3
+    noise_scale = 0.1
+    noise_scale_base = 0.1
+    base_fun = torch.nn.SiLU()
+    symbolic_enabled = True
+    bias_trainable = True
+    sp_trainable = True
+    sb_trainable = True
+    device = 'cpu'
 
 
 def setup_seed(seed):
@@ -224,7 +236,7 @@ def test_diff_mlp():
 def test_ekan():
     setup_seed(7)
     args = Args()
-    kan_param = eKANParameter(
+    ekan_param = eKANParameter(
         n_inputs=args.layers_hidden[0],
         n_outputs=args.layers_hidden[-1],
         n_eph=0,
@@ -232,7 +244,7 @@ def test_ekan():
         function_set=None,
         one_in_one_out=False
     )
-    ekan = eKAN(kan_param)
+    ekan = eKAN(ekan_param)
     print(ekan)
     y = ekan(X)
     print(X.shape, y.shape)
@@ -241,9 +253,18 @@ def test_ekan():
 def test_vkan():
     setup_seed(8)
     args = Args()
-    vkan = KAN(width=[3, 3, 1])
+    vkan_param = vKANParameter(
+        n_inputs=args.width[0],
+        n_outputs=args.width[-1],
+        n_eph=0,
+        args=args,
+        function_set=None,
+        one_in_one_out=False
+    )
+    vkan = KAN(vkan_param)
     print(vkan)
     y = vkan(X)
     print(X.shape, y.shape)
-    vkan.auto_symbolic()
+    lib = ['sin', 'x^2', 'log']
+    vkan.auto_symbolic(lib=lib)
     print(vkan.symbolic_formula()[0][0])

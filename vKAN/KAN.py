@@ -93,7 +93,7 @@ class KAN(nn.Module):
                  # base_fun=torch.nn.SiLU(),
                  # symbolic_enabled=True,
                  # bias_trainable=True,
-                 # grid_eps=1.0,
+                 # grid_eps=0.02,
                  # grid_range=[-1, 1],
                  # sp_trainable=True,
                  # sb_trainable=True,
