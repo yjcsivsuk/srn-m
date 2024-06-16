@@ -858,7 +858,7 @@ class KAN(nn.Module):
         Example
         -------
         >>> # for interactive examples, please see demos
-        >>> from utils import create_dataset
+        >>> from vKAN.utils import create_dataset
         >>> model = KAN(width=[2,5,1], grid=5, k=3, noise_scale=0.1, seed=0)
         >>> f = lambda x: torch.exp(torch.sin(torch.pi*x[:,[0]]) + x[:,[1]]**2)
         >>> dataset = create_dataset(f, n_var=2)
@@ -1006,7 +1006,7 @@ class KAN(nn.Module):
         Example
         -------
         >>> # for more interactive examples, please see demos
-        >>> from utils import create_dataset
+        >>> from vKAN.utils import create_dataset
         >>> model = KAN(width=[2,5,1], grid=5, k=3, noise_scale=0.1, seed=0)
         >>> f = lambda x: torch.exp(torch.sin(torch.pi*x[:,[0]]) + x[:,[1]]**2)
         >>> dataset = create_dataset(f, n_var=2)
@@ -1179,7 +1179,7 @@ class KAN(nn.Module):
         Example 1
         ---------
         >>> # default library
-        >>> from utils import create_dataset
+        >>> from vKAN.utils import create_dataset
         >>> model = KAN(width=[2,5,1], grid=5, k=3, noise_scale=0.1, seed=0)
         >>> f = lambda x: torch.exp(torch.sin(torch.pi*x[:,[0]]) + x[:,[1]]**2)
         >>> dataset = create_dataset(f, n_var=2)
@@ -1194,7 +1194,7 @@ class KAN(nn.Module):
         Example 2
         ---------
         >>> # customized library
-        >>> from utils import create_dataset
+        >>> from vKAN.utils import create_dataset
         >>> model = KAN(width=[2,5,1], grid=5, k=3, noise_scale=0.1, seed=0)
         >>> f = lambda x: torch.exp(torch.sin(torch.pi*x[:,[0]]) + x[:,[1]]**2)
         >>> dataset = create_dataset(f, n_var=2)
