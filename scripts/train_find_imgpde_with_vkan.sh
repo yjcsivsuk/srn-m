@@ -2,16 +2,16 @@
 
 pde_find_with_vkan=True
 # 要解释的卷积神经网络LeNet
-layer_idx=1
+layer_idx=0
 # PINN+KAN端到端训练相关参数
 with_fu=False  # 固定为False，使vKANPDE:=PINN+KAN
 n_layer=5  # pinn隐藏层数量
 pd_weight=1.0
 pde_weight=1.0
 weight_decay=1e-5
-epoch=10000
-lr=5e-3
-optim=AdamW
+epoch=100
+lr=1e-3
+optim=Adam
 # KAN模型相关参数
 grid=5
 k=3

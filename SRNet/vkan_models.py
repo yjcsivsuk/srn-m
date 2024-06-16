@@ -91,9 +91,9 @@ class vKANPDE(nn.Module):
         }
 
     def expr(self):
-        self.pde_model.prune()
-        function_set = self.sr_param.function_set
-        self.pde_model.auto_symbolic(lib=function_set)
+        # function_set = self.sr_param.function_set
+        # self.pde_model.auto_symbolic(lib=function_set)
+        self.pde_model.auto_symbolic()
         expression = self.pde_model.symbolic_formula(var=['u_x', 'u_y', 'u_xy'])[0][0]
         return expression
 

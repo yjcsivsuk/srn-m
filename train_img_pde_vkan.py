@@ -167,9 +167,14 @@ def train_pde_find_with_vkan(args):
         writer.add_scalar("loss/train_step_regular", regularization, epoch)
 
     print("Train Over. The Expression is Below")
+    # 画图和输出表达式之前是不是应该再训练一次KAN？
     expression = PDE.expr()
-    expression = sp.sympify(expression)
+    # expression = sp.sympify(expression)
     print(expression)
+    # plot->prune->plot(mask)->prune->forward->plot
+    PDE.pde_model.plot(folder=os.path.join(args.out_dir, "figures"), beta=100)
+    # PDE.pde_model.prune()
+    # PDE.pde_model.plot(folder=os.path.join(args.out_dir, "figures"), mask=True)
 
 
 if __name__ == "__main__":
@@ -188,13 +193,13 @@ if __name__ == "__main__":
     parser.add_argument("--pde_weight", type=float, default=1.0)
     parser.add_argument("--weight_decay", type=float, default=1e-5)
     parser.add_argument("--epoch", type=int, default=10)
-    parser.add_argument("--lr", type=float, default=1e-3)
+    parser.add_argument("--lr", type=float, default=1e-2)
     parser.add_argument("--optim", type=str, default="Adam", choices=["Adam", "LBFGS", "AdamW"])
     # KAN模型相关参数
     parser.add_argument("--pde_find_with_vkan", type=boolean_str, default="True")
     parser.add_argument("--n_layer", type=int, default=5)  # pinn隐藏层的数量
-    parser.add_argument("--function_set", type=str, default=['sin', 'cos', 'x', 'x^2', 'log'])
-    parser.add_argument("--width", type=str, default=[3, 3, 1])
+    parser.add_argument("--function_set", type=str, default=None)
+    parser.add_argument("--width", type=str, default=[3, 1, 1])
     parser.add_argument("--grid", type=int, default=3)
     parser.add_argument("--k", type=int, default=3)
     parser.add_argument("--noise_scale", type=float, default=0.1)
