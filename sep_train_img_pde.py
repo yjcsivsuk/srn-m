@@ -9,8 +9,8 @@ from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 
 from SRNet.img_models import PINN
-from SRNet.parameters import KANParameter
-from SRNet.usr_models import KAN
+from SRNet.parameters import eKANParameter
+from SRNet.usr_models import eKAN
 from neural_network import neural_networks
 from load_data import build_image_pde_data, load_mnist_data, build_image_from_pde_data
 from utils import show_img, pinn_loss, kan_loss
@@ -167,14 +167,14 @@ def train_kan(args):
     input_data = torch.load(os.path.join(args.pinn_path, "PDTs.pt"), map_location=device)
 
     # Load the KAN
-    kan_param = KANParameter(
+    kan_param = eKANParameter(
         n_inputs=3,  # dx, dy, dxdy
         n_outputs=1,  # f(·)=0
         n_eph=0,
         args=args,
         function_set=None
     )
-    ImageKAN = KAN(args)
+    ImageKAN = eKAN(args)
 
     print(ImageKAN)
     print(f"Input PDTs length:{len(input_data)}, shape:{input_data[0].shape}")
