@@ -21,7 +21,7 @@ layer_idx=0
 lr=3e-3
 optim=AdamW
 
-out_dir=output/img_find-pde_with_kan/${n_layers}layers-li${layer_idx}-gs${grid_size}-wd${weight_decay}-opt${optim}-lr${lr}-ep${epoch}
+out_dir=output/img-find-pde_with_kan/${n_layers}layers-li${layer_idx}-gs${grid_size}-wd${weight_decay}-opt${optim}-lr${lr}-ep${epoch}
 mkdir -p ${out_dir}
 
 nohup python train_img_pde.py \

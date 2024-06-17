@@ -817,7 +817,7 @@ if __name__ == "__main__":
     parser.add_argument("--grid_eps", type=float, default=0.02)
     parser.add_argument("--grid_range", type=list, default=[-1, 1])
 
-    parser.add_argument("--out_dir", type=str, default="./output/find_pde_with_kan_without_sobel/test")
+    parser.add_argument("--out_dir", type=str, default="./output/find-pde_with_kan_without_sobel/test")
     parser.add_argument("--save_steps", type=int, default=10)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--gpu", type=str, default="cpu")

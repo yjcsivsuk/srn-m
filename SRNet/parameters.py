@@ -139,6 +139,7 @@ class vKANParameter(BaseSRParameter):
         super().__init__(n_inputs, n_outputs, n_eph, function_set, one_in_one_out)
 
         self.n_layer = args.n_layer  # pinn隐藏层的数量
+        self.function_set = args.function_set  # 使用kan输出表达式时的符号集
         self.width = args.width  # 用vkan代替eql
         self.grid = args.grid
         self.k = args.k

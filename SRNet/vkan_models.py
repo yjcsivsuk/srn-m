@@ -22,8 +22,8 @@ class vKANPDE(nn.Module):
             )
 
         self.pd_lib = pd_lib
+
         pde_param = copy.deepcopy(sr_param)
-        pde_param.width = [3, 3, 1]
         self.pde_param = pde_param
         self.pde_model = KAN(pde_param)  # 之后进行替换的时候，估计得从这里改？
 
@@ -90,9 +90,13 @@ class vKANPDE(nn.Module):
             "pde_out": pde_out
         }
 
-    # def expr(self, input_vars=None, sparse_filter=0.01):
-    #     return self.pde_model.expr(input_vars, sparse_filter=sparse_filter)
-    #
+    def expr(self):
+        self.pde_model.prune()
+        function_set = self.sr_param.function_set
+        self.pde_model.auto_symbolic(lib=function_set)
+        expression = self.pde_model.symbolic_formula(var=['u_x', 'u_y', 'u_xy'])[0][0]
+        return expression
+
     def regularization(self, type="l1"):
         reg = 0.
         for name, param in self.pde_model.named_parameters():

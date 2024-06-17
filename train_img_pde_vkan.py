@@ -1,9 +1,11 @@
 import os
+import logging
 import time
 import torch
-import numpy as np
 import random
 import argparse
+import numpy as np
+import sympy as sp
 
 from tqdm import tqdm
 from torch.utils.tensorboard import SummaryWriter
@@ -96,7 +98,9 @@ def train_pde_find_with_vkan(args):
         n_inputs=len(input_data) - 1,  # x, y, t, dx?, dy?
         n_outputs=1,  # u
         n_eph=0,
-        args=args
+        args=args,
+        function_set=None,
+        one_in_one_out=False
     )
     PDE = vKANPDE(param, with_fu=args.with_fu)
 
@@ -162,26 +166,36 @@ def train_pde_find_with_vkan(args):
         writer.add_scalar("loss/train_step_pde_loss", pde_loss, epoch)
         writer.add_scalar("loss/train_step_regular", regularization, epoch)
 
+    print("Train Over. The Expression is Below")
+    expression = PDE.expr()
+    expression = sp.sympify(expression)
+    print(expression)
+
 
 if __name__ == "__main__":
     def boolean_str(s):
         return s == "True"
     parser = argparse.ArgumentParser()
+
+    # 要解释的卷积神经网络LeNet
     parser.add_argument("--data_dir", type=str, default="./data/img")
     parser.add_argument("--nn_name", type=str, default="LeNet")
     parser.add_argument("--nn_path", type=str, default="./output/LeNet/LeNet")
     parser.add_argument("--layer_idx", type=int, default=0)
-    parser.add_argument("--optim", type=str, default="Adam", choices=["Adam", "LBFGS", "AdamW"])
+    # PINN+KAN端到端训练相关参数
     parser.add_argument("--with_fu", type=boolean_str, default="False")
     parser.add_argument("--pd_weight", type=float, default=1.0)
     parser.add_argument("--pde_weight", type=float, default=1.0)
     parser.add_argument("--weight_decay", type=float, default=1e-5)
-    parser.add_argument("--epoch", type=int, default=100)
+    parser.add_argument("--epoch", type=int, default=10)
     parser.add_argument("--lr", type=float, default=1e-3)
+    parser.add_argument("--optim", type=str, default="Adam", choices=["Adam", "LBFGS", "AdamW"])
+    # KAN模型相关参数
     parser.add_argument("--pde_find_with_vkan", type=boolean_str, default="True")
     parser.add_argument("--n_layer", type=int, default=5)  # pinn隐藏层的数量
+    parser.add_argument("--function_set", type=str, default=['sin', 'cos', 'x', 'x^2', 'log'])
     parser.add_argument("--width", type=str, default=[3, 3, 1])
-    parser.add_argument("--grid", type=int, default=5)
+    parser.add_argument("--grid", type=int, default=3)
     parser.add_argument("--k", type=int, default=3)
     parser.add_argument("--noise_scale", type=float, default=0.1)
     parser.add_argument("--noise_scale_base", type=float, default=0.1)
@@ -192,11 +206,12 @@ if __name__ == "__main__":
     parser.add_argument("--grid_range", type=str, default=[-1, 1])
     parser.add_argument("--sp_trainable", type=boolean_str, default="True")
     parser.add_argument("--sb_trainable", type=boolean_str, default="True")
-    parser.add_argument("--device", type=str, default="cpu")
-    parser.add_argument("--out_dir", type=str, default="./output/find_pde_with_vkan/test")
+    parser.add_argument("--device", type=str, default="cpu")  # kan中的设备
+    # 训练结果相关参数
+    parser.add_argument("--out_dir", type=str, default="./output/find-pde_with_vkan/test")
     parser.add_argument("--save_steps", type=int, default=10)
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--gpu", type=str, default="cpu")
+    parser.add_argument("--gpu", type=str, default="cpu")  # 全局的设备
     args = parser.parse_args()
     if args.pde_find_with_vkan:
         train_pde_find_with_vkan(args)

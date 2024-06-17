@@ -1,0 +1,57 @@
+/Users/lihaoyang/anaconda3/envs/SRNet/lib/python3.9/site-packages/torch/functional.py:504: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_11601pzv9m/croot/pytorch_1681837278807/work/aten/src/ATen/native/TensorShape.cpp:3191.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+Hidden Images Shape: torch.Size([4, 6, 14, 14])
+vKANPDE(
+  (u_model): DiffMLP(
+    (model): Sequential(
+      (0): Linear(in_features=5, out_features=100, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=100, out_features=100, bias=True)
+      (3): ReLU()
+      (4): Linear(in_features=100, out_features=100, bias=True)
+      (5): ReLU()
+      (6): Linear(in_features=100, out_features=100, bias=True)
+      (7): ReLU()
+      (8): Linear(in_features=100, out_features=100, bias=True)
+      (9): ReLU()
+      (10): Linear(in_features=100, out_features=100, bias=True)
+      (11): ReLU()
+      (12): Linear(in_features=100, out_features=1, bias=True)
+    )
+  )
+  (pde_model): KAN(
+    (biases): ModuleList(
+      (0): Linear(in_features=3, out_features=1, bias=False)
+      (1): Linear(in_features=1, out_features=1, bias=False)
+    )
+    (act_fun): ModuleList(
+      (0): KANLayer(
+        (base_fun): SiLU()
+      )
+      (1): KANLayer(
+        (base_fun): SiLU()
+      )
+    )
+    (base_fun): SiLU()
+    (symbolic_fun): ModuleList(
+      (0): Symbolic_KANLayer()
+      (1): Symbolic_KANLayer()
+    )
+  )
+)
+Input data shape: 6 torch.Size([4704]) U shape: torch.Size([4, 6, 14, 14])
+Train vKANPDE:   0%|          | 0/10 [00:00<?, ?it/s]Train vKANPDE:   0%|          | 0/10 [00:00<?, ?it/s, step_loss=1.12, step_pd_loss=0.29, step_pde_loss=0.00357, step_regularization=0, step_u_loss=0.823]Train vKANPDE:  10%|█         | 1/10 [00:00<00:01,  4.62it/s, step_loss=1.12, step_pd_loss=0.29, step_pde_loss=0.00357, step_regularization=0, step_u_loss=0.823]Train vKANPDE:  10%|█         | 1/10 [00:00<00:01,  4.62it/s, step_loss=1.08, step_pd_loss=0.29, step_pde_loss=0.00365, step_regularization=0.004, step_u_loss=0.79]Train vKANPDE:  20%|██        | 2/10 [00:00<00:02,  3.96it/s, step_loss=1.08, step_pd_loss=0.29, step_pde_loss=0.00365, step_regularization=0.004, step_u_loss=0.79]Train vKANPDE:  20%|██        | 2/10 [00:00<00:02,  3.96it/s, step_loss=1.05, step_pd_loss=0.29, step_pde_loss=0.00339, step_regularization=0.0038, step_u_loss=0.76]Train vKANPDE:  30%|███       | 3/10 [00:00<00:01,  4.62it/s, step_loss=1.05, step_pd_loss=0.29, step_pde_loss=0.00339, step_regularization=0.0038, step_u_loss=0.76]Train vKANPDE:  30%|███       | 3/10 [00:00<00:01,  4.62it/s, step_loss=1.02, step_pd_loss=0.289, step_pde_loss=0.000793, step_regularization=0.00219, step_u_loss=0.729]Train vKANPDE:  40%|████      | 4/10 [00:00<00:01,  5.19it/s, step_loss=1.02, step_pd_loss=0.289, step_pde_loss=0.000793, step_regularization=0.00219, step_u_loss=0.729]Train vKANPDE:  40%|████      | 4/10 [00:00<00:01,  5.19it/s, step_loss=0.988, step_pd_loss=0.289, step_pde_loss=0.00301, step_regularization=0.000193, step_u_loss=0.695]Train vKANPDE:  50%|█████     | 5/10 [00:00<00:00,  5.38it/s, step_loss=0.988, step_pd_loss=0.289, step_pde_loss=0.00301, step_regularization=0.000193, step_u_loss=0.695]Train vKANPDE:  50%|█████     | 5/10 [00:01<00:00,  5.38it/s, step_loss=0.948, step_pd_loss=0.289, step_pde_loss=0.00375, step_regularization=0.000242, step_u_loss=0.655]Train vKANPDE:  60%|██████    | 6/10 [00:01<00:00,  5.38it/s, step_loss=0.948, step_pd_loss=0.289, step_pde_loss=0.00375, step_regularization=0.000242, step_u_loss=0.655]Train vKANPDE:  60%|██████    | 6/10 [00:01<00:00,  5.38it/s, step_loss=0.897, step_pd_loss=0.288, step_pde_loss=0.00297, step_regularization=0.000313, step_u_loss=0.606]Train vKANPDE:  70%|███████   | 7/10 [00:01<00:00,  5.49it/s, step_loss=0.897, step_pd_loss=0.288, step_pde_loss=0.00297, step_regularization=0.000313, step_u_loss=0.606]Train vKANPDE:  70%|███████   | 7/10 [00:01<00:00,  5.49it/s, step_loss=0.839, step_pd_loss=0.288, step_pde_loss=0.00236, step_regularization=0.00145, step_u_loss=0.549] Train vKANPDE:  80%|████████  | 8/10 [00:01<00:00,  5.72it/s, step_loss=0.839, step_pd_loss=0.288, step_pde_loss=0.00236, step_regularization=0.00145, step_u_loss=0.549]Train vKANPDE:  80%|████████  | 8/10 [00:01<00:00,  5.72it/s, step_loss=0.781, step_pd_loss=0.288, step_pde_loss=0.00352, step_regularization=0.00264, step_u_loss=0.489]Train vKANPDE:  90%|█████████ | 9/10 [00:01<00:00,  5.64it/s, step_loss=0.781, step_pd_loss=0.288, step_pde_loss=0.00352, step_regularization=0.00264, step_u_loss=0.489]Train vKANPDE:  90%|█████████ | 9/10 [00:02<00:00,  5.64it/s, step_loss=0.732, step_pd_loss=0.288, step_pde_loss=0.00536, step_regularization=0.00351, step_u_loss=0.439]Train vKANPDE: 100%|██████████| 10/10 [00:02<00:00,  2.61it/s, step_loss=0.732, step_pd_loss=0.288, step_pde_loss=0.00536, step_regularization=0.00351, step_u_loss=0.439]Train vKANPDE: 100%|██████████| 10/10 [00:02<00:00,  3.93it/s, step_loss=0.732, step_pd_loss=0.288, step_pde_loss=0.00536, step_regularization=0.00351, step_u_loss=0.439]
+Train Over. The Expression is Below
+fixing (0,0,0) with x^2, r2=1.0000004768371582
+fixing (0,0,1) with x^2, r2=0.9999995231628418
+fixing (0,0,2) with x^2, r2=1.0000005960464478
+fixing (0,1,0) with x^2, r2=1.0000003576278687
+fixing (0,1,1) with x^2, r2=1.000000238418579
+fixing (0,1,2) with x^2, r2=1.000000238418579
+fixing (0,2,0) with x^2, r2=7.14981834266335e-16
+fixing (0,2,1) with log, r2=0.0
+fixing (0,2,2) with x^2, r2=1.0054432623396765e-16
+fixing (1,0,0) with x^2, r2=1.000000238418579
+fixing (1,1,0) with x^2, r2=1.0000004768371582
+fixing (1,2,0) with x^2, r2=1.0000001192092896
+0.1*(-0.17*(-u_x - 0.75)**2 - 0.24*(-u_y - 0.88)**2 - 1)**2 + 0.06*(0.26*(u_x + 0.97)**2 + 0.13*(-u_y - 0.68)**2 + 1)**2 + 0.04*(-0.29*(u_x + 0.81)**2 - 0.01*(-u_xy - 0.98)**2 - 0.36*(-0.84*u_y - 1)**2 - 1)**2 - 0.36
