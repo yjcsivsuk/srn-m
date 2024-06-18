@@ -804,7 +804,7 @@ if __name__ == "__main__":
 
     # KAN PDE Find
     parser.add_argument("--pde_find_with_kan_without_sobel", type=boolean_str, default="False")
-    parser.add_argument("--pde_find_with_kan", type=boolean_str, default="True")
+    parser.add_argument("--pde_find_with_kan", type=boolean_str, default="False")
     parser.add_argument("--pde_find_only_with_kan", type=boolean_str, default="False")
     parser.add_argument("--img_pde_find_with_kan", type=boolean_str, default="False")
     parser.add_argument("--layers_hidden", type=list, default=[3, 3, 1])

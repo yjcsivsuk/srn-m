@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gpu=cpu
+gpu=cuda:0
 seed=42
 
 pde_find_only_with_kan=False
@@ -14,12 +14,14 @@ scale_noise=0.1
 scale_base=1.0
 scale_spline=1.0
 grid_eps=0.02
-epoch=1000
+epoch=5000
 layer_idx=0
 lr=3e-3
 optim=AdamW
+pd_weight=0
 
-out_dir=output/find-pde_with_kan/${n_layers}layers-li${layer_idx}-gs${grid_size}-opt${optim}-lr${lr}-ep${epoch}
+
+out_dir=output/find-pde_with_kan/${n_layers}layers-li${layer_idx}-gs${grid_size}-opt${optim}-lr${lr}-pdw${pd_weight}-ep${epoch}
 mkdir -p ${out_dir}
 
 nohup python train_img_pde.py \
@@ -39,6 +41,7 @@ nohup python train_img_pde.py \
     --grid_eps ${grid_eps} \
     --lr ${lr} \
     --optim ${optim} \
+    --pd_weight ${pd_weight} \
     --out_dir ${out_dir} \
     > ${out_dir}/train.log 2>&1 & \
     echo $! > ${out_dir}/train.pid
