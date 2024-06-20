@@ -5,15 +5,15 @@ seed=42
 
 epoch=5000
 n_layers=5
-layer_idx=1
+layer_idx=0
 weight_decay=1e-5
 warmup_ratio=0.1
-lr=5e-3
+lr=3e-3
 clip_norm=0
 
 pde_find=True
 with_fu=False
-pd_weight=1.0
+pd_weight=1e-5
 pde_weight=1.0
 
 out_dir=output/find-pde/${n_layers}layers-li${layer_idx}-clip${clip_norm}-lr${lr}-pw${pd_weight}-pew${pde_weight}-wd${weight_decay}-w${warmup_ratio}
