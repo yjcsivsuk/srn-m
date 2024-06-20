@@ -14,11 +14,11 @@ scale_noise=0.1
 scale_base=1.0
 scale_spline=1.0
 grid_eps=0.02
-epoch=5000
-layer_idx=0
+epoch=10000
+layer_idx=1
 lr=3e-3
 optim=AdamW
-pd_weight=0
+pd_weight=1e-4
 
 
 out_dir=output/find-pde_with_kan/${n_layers}layers-li${layer_idx}-gs${grid_size}-opt${optim}-lr${lr}-pdw${pd_weight}-ep${epoch}
