@@ -14,7 +14,7 @@ clip_norm=0
 pde_find=True
 with_fu=False
 pd_weight=1.0
-pde_weight=0.5
+pde_weight=1.0
 
 out_dir=output/find-pde/${n_layers}layers-li${layer_idx}-clip${clip_norm}-lr${lr}-pw${pd_weight}-pew${pde_weight}-wd${weight_decay}-w${warmup_ratio}
 mkdir -p ${out_dir}
