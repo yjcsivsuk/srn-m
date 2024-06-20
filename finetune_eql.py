@@ -45,7 +45,8 @@ def construct_graph(model):
         return root_node
 
     layers = model.layers
-    function_set = model.function_set
+    params = model.sr_param
+    function_set = params.function_set
     vars = [Var(f"x{i}") for i in range(layers[0].in_features)]
     var_nodes = [Node(var, None, None, 0, i) for i, var in enumerate(vars)]
 
