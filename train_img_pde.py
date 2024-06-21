@@ -319,6 +319,7 @@ def train_pde_find(args):
     # if args.with_fu:
     T = T.requires_grad_(True)
 
+
     U = U.reshape(sample_size, time_steps, x_steps, y_steps).to(device)
     input_data = [X, Y, T, dX, dY, U]
 
@@ -789,7 +790,7 @@ if __name__ == "__main__":
     parser.add_argument("--optim", type=str, default="Adam", choices=["Adam", "LBFGS", "AdamW"])
 
     # EQL PDE Find
-    parser.add_argument("--pde_find", type=boolean_str, default="False")
+    parser.add_argument("--pde_find", type=boolean_str, default="True")
     parser.add_argument("--with_fu", type=boolean_str, default="False")
     parser.add_argument("--pd_weight", type=float, default=1.0)
     parser.add_argument("--pde_weight", type=float, default=1.0)
@@ -817,7 +818,7 @@ if __name__ == "__main__":
     parser.add_argument("--grid_eps", type=float, default=0.02)
     parser.add_argument("--grid_range", type=list, default=[-1, 1])
 
-    parser.add_argument("--out_dir", type=str, default="./output/find-pde_with_kan_without_sobel/test")
+    parser.add_argument("--out_dir", type=str, default="./output/find-pde_dt/test")
     parser.add_argument("--save_steps", type=int, default=10)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--gpu", type=str, default="cpu")
