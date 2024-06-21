@@ -316,8 +316,8 @@ def train_pde_find(args):
     X, Y, T, dX, dY = map(lambda i: input_data[:, i].to(device), range(5))
     X = X.requires_grad_(True)
     Y = Y.requires_grad_(True)
-    if args.with_fu:
-        T = T.requires_grad_(True)
+    # if args.with_fu:
+    T = T.requires_grad_(True)
 
     U = U.reshape(sample_size, time_steps, x_steps, y_steps).to(device)
     input_data = [X, Y, T, dX, dY, U]

@@ -159,7 +159,7 @@ class EQL(nn.Module):
 
 # PINN+EQL
 class EQLPDE(nn.Module):
-    def __init__(self, sr_param: EQLParameter, with_fu=False, pd_lib=['dx', 'dy', 'dxdy']) -> None:
+    def __init__(self, sr_param: EQLParameter, with_fu=False, pd_lib=['dx', 'dy', 'dt']) -> None:
         super().__init__()
         self.sr_param = sr_param
         self.u_model = None
