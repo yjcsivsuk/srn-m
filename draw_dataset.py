@@ -62,7 +62,7 @@ plt.xlabel('No. of Samples')
 plt.ylabel('No. of Features')
 plt.legend()
 plt.grid()
-plt.savefig('dataset.pdf', dpi=600)
+plt.savefig('dataset_reg.pdf', dpi=600)
 plt.show()
 
 
