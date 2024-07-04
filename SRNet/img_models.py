@@ -6,8 +6,6 @@ import sys
 sys.path.append("/Users/lihaoyang/Projects/srn-m/SRNet")
 import torch
 from torch import nn
-from parameters import KANParameter
-from usr_models import KAN, KANLinear
 from functions import img_dx, img_dy
 from utils import pinn_loss, kan_loss  # 要修改loss的计算方式，把原先EQLPDE的loss函数拆成两部分
 
