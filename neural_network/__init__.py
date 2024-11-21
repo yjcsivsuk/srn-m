@@ -1,5 +1,6 @@
 from .mlp import MLP
 from .conv_net import LeNet5, TestConvNet
+from .rnn import VanillaRNN
 
 
 neural_networks = {
@@ -8,4 +9,5 @@ neural_networks = {
     "MLP": MLP,
     "LeNet": LeNet5,
     "lenet": LeNet5,
+    "rnn": VanillaRNN
 }

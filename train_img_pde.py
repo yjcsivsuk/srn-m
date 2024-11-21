@@ -271,6 +271,7 @@ def train_img_pde_with_kan(args):
         writer.add_scalar("loss/train_step_regular", regularization.item(), epoch)
 
 
+# 核心代码
 def train_pde_find(args):
     os.makedirs(args.out_dir, exist_ok=True)
     cur_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
@@ -375,6 +376,130 @@ def train_pde_find(args):
                             f"pred_sample{sample_id}_hidden_{args.layer_idx}.pdf"
                         )
                     )
+
+        loss.backward()
+        if args.clip_norm > 0:
+            torch.nn.utils.clip_grad.clip_grad_norm_(PDE.parameters(), args.clip_norm)
+
+        optimizer.step()
+
+        if scheduler is not None:
+            scheduler.step()
+
+        regularization = losses["regularization"].item()
+        u_loss = losses["u_loss"].item()
+        pde_loss = losses["pde_loss"].item()
+        pd_loss = losses["pd_loss"].item()
+
+        tqbar.set_postfix(
+            step_loss=loss.item(),
+            step_regularization=regularization,
+            step_u_loss=u_loss,
+            step_pde_loss=pde_loss,
+            step_pd_loss=pd_loss
+        )
+        writer.add_scalar("loss/train_step_loss", loss.item(), epoch)
+        writer.add_scalar("loss/train_step_regular", regularization, epoch)
+        writer.add_scalar("loss/train_step_u_loss", u_loss, epoch)
+        writer.add_scalar("loss/train_step_pde_loss", pde_loss, epoch)
+        writer.add_scalar("loss/train_step_pd_loss", pd_loss, epoch)
+
+def train_pde_find_rnn(args):
+    os.makedirs(args.out_dir, exist_ok=True)
+    cur_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    tb_dir = os.path.join(args.out_dir, "tb", cur_time)
+    setup_seed(args.seed)
+
+    # device
+    device = torch.device(args.gpu)
+
+    # loading trained neural network
+    net = neural_networks["rnn"](7, 50, 1, 1)
+    net.load_state_dict(
+        torch.load("rnn_data/rnn.pt", map_location=device)
+    )
+    net.eval()
+
+    # 读取x,dx,h,dh数据
+    data_x = torch.load("rnn_data/x1393657").to(device)  # x
+    data_h = torch.load("rnn_data/h13936550").to(device)  # h
+    data_xh = torch.concatenate((data_x, data_h), dim=-1)
+    hidden_images = data_xh.unsqueeze(dim=1)
+    sample_size, time_steps, x_steps, y_steps = hidden_images.size()
+    print("Hidden Images Shape:", hidden_images.shape)
+
+    # Build the dataset
+    # input_data.shape=(n_samples, flat_size, (3+add_dx+add_dy))
+    input_data, U = build_image_pde_data(
+        hidden_images,
+        x_range=(-1, 1),
+        y_range=(-1, 1),
+        t_range=(0, 1),
+        add_dx=True,
+        add_dy=True
+    )
+    input_data = input_data.reshape(-1, input_data.size(-1))
+    X, Y, T, dX, dY = map(lambda i: input_data[:, i].to(device), range(5))
+    X = X.requires_grad_(True)
+    Y = Y.requires_grad_(True)
+    # if args.with_fu:
+    T = T.requires_grad_(True)
+
+
+    U = U.reshape(sample_size, time_steps, x_steps, y_steps).to(device)
+    input_data = [X, Y, T, dX, dY, U]
+
+    # Load the SR
+    param = EQLParameter(
+        n_inputs=len(input_data) - 1,  # x, y, t, dx?, dy?
+        n_outputs=1,  # u
+        n_eph=0,
+        args=args,
+        function_set=["add", "mul", "sin", "cos", "square", "log"]
+    )
+    PDE = EQLPDE(param, with_fu=args.with_fu)
+
+    print(PDE)
+    print("Input data shape:", len(input_data), X.shape, "U shape:", U.shape)
+
+    # Train the PDE
+    PDE = PDE.to(device)
+    optimizer = torch.optim.Adam(PDE.parameters(), lr=args.lr)
+    total_steps = args.epoch
+    scheduler = None
+    if args.warmup_ratio > 0:
+        warmup_steps = int(total_steps * args.warmup_ratio)
+        scheduler = get_warmup_scheduler(optimizer, warmup_steps, total_steps)
+
+    writer = SummaryWriter(tb_dir)
+    tqbar = tqdm(range(args.epoch), desc="Train PDE Find", total=args.epoch)
+
+    best_loss = float("inf")
+    global_steps = 0
+    for epoch in tqbar:
+
+        global_steps += 1
+
+        optimizer.zero_grad()
+
+        losses = pde_loss_fn(args, PDE, input_data, U)
+        loss = losses["loss"]
+
+        if loss < best_loss:
+            best_loss = loss
+            torch.save(PDE.state_dict(), os.path.join(args.out_dir, "PDE.pt"))
+
+            if global_steps % args.save_steps == 0:
+                U_pred = PDE(*input_data)["u_hat"].squeeze().cpu()
+                img_pred = build_image_from_pde_data(U_pred, sample_size, time_steps, x_steps, y_steps)
+                show_img(
+                    img_pred[0], 1, 1,
+                    f"Predicted U Hidden",
+                    save_path=os.path.join(
+                        args.out_dir,
+                        f"pred_hidden.pdf"
+                    )
+                )
 
         loss.backward()
         if args.clip_norm > 0:
@@ -807,6 +932,7 @@ if __name__ == "__main__":
     parser.add_argument("--pde_find_with_kan_without_sobel", type=boolean_str, default="False")
     parser.add_argument("--pde_find_with_kan", type=boolean_str, default="False")
     parser.add_argument("--pde_find_only_with_kan", type=boolean_str, default="False")
+    parser.add_argument("--pde_find_rnn", type=boolean_str, default="False")
     parser.add_argument("--img_pde_find_with_kan", type=boolean_str, default="False")
     parser.add_argument("--layers_hidden", type=list, default=[3, 3, 1])
     parser.add_argument("--grid_size", type=int, default=5)
@@ -823,6 +949,8 @@ if __name__ == "__main__":
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--gpu", type=str, default="cpu")
     args = parser.parse_args()
+    if args.pde_find_rnn:
+        train_pde_find_rnn(args)
     if args.pde_find_with_kan_without_sobel:
         train_pde_find_with_kan_without_sobel(args)
     elif args.pde_find_only_with_kan:

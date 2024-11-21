@@ -1,0 +1,31 @@
+/Users/lihaoyang/anaconda3/envs/SRNet/lib/python3.9/site-packages/torch/functional.py:504: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_11601pzv9m/croot/pytorch_1681837278807/work/aten/src/ATen/native/TensorShape.cpp:3191.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+Hidden Images Shape: torch.Size([13936, 1, 5, 57])
+EQLPDE(
+  (u_model): DiffMLP(
+    (model): Sequential(
+      (0): Linear(in_features=5, out_features=100, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=100, out_features=100, bias=True)
+      (3): ReLU()
+      (4): Linear(in_features=100, out_features=100, bias=True)
+      (5): ReLU()
+      (6): Linear(in_features=100, out_features=100, bias=True)
+      (7): ReLU()
+      (8): Linear(in_features=100, out_features=100, bias=True)
+      (9): ReLU()
+      (10): Linear(in_features=100, out_features=100, bias=True)
+      (11): ReLU()
+      (12): Linear(in_features=100, out_features=1, bias=True)
+    )
+  )
+  (pde_model): EQL(
+    (layers): ModuleList(
+      (0): Linear(in_features=3, out_features=8, bias=True)
+      (1): Linear(in_features=9, out_features=1, bias=True)
+    )
+  )
+)
+Input data shape: 6 torch.Size([3971760]) U shape: torch.Size([13936, 1, 5, 57])
+Train PDE Find:   0%|          | 0/500 [00:00<?, ?it/s]/Users/lihaoyang/anaconda3/envs/SRNet/lib/python3.9/multiprocessing/resource_tracker.py:216: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
