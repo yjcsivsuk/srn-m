@@ -425,6 +425,7 @@ def train_pde_find_rnn(args):
     data_h = torch.load("rnn_data/h13936550").to(device)  # h
     data_xh = torch.concatenate((data_x, data_h), dim=-1)
     hidden_images = data_xh.unsqueeze(dim=1)
+    hidden_images = hidden_images[0:10, :, :, :]  # 否则数据量太大，服务器和电脑直接卡死
     sample_size, time_steps, x_steps, y_steps = hidden_images.size()
     print("Hidden Images Shape:", hidden_images.shape)
 
@@ -500,8 +501,17 @@ def train_pde_find_rnn(args):
                         f"pred_hidden.pdf"
                     )
                 )
+                img_real = build_image_from_pde_data(U, sample_size, time_steps, x_steps, y_steps)
+                show_img(
+                    img_real[0], 1, 1,
+                    f"Real U Hidden",
+                    save_path=os.path.join(
+                        args.out_dir,
+                        f"real_hidden.pdf"
+                    )
+                )
 
-        loss.backward()
+        loss.backward(retain_graph=True)
         if args.clip_norm > 0:
             torch.nn.utils.clip_grad.clip_grad_norm_(PDE.parameters(), args.clip_norm)
 
@@ -951,7 +961,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if args.pde_find_rnn:
         train_pde_find_rnn(args)
-    if args.pde_find_with_kan_without_sobel:
+    elif args.pde_find_with_kan_without_sobel:
         train_pde_find_with_kan_without_sobel(args)
     elif args.pde_find_only_with_kan:
         train_pde_find_only_with_kan(args)
