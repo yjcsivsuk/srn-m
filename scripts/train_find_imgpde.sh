@@ -3,7 +3,7 @@
 gpu=cpu
 seed=42
 
-epoch=100
+epoch=1000
 n_layers=5
 layer_idx=0
 weight_decay=1e-5

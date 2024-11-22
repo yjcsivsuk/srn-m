@@ -423,6 +423,7 @@ def train_pde_find_rnn(args):
     # 读取x,h数据
     data_x = torch.load("rnn_data/x1393657")  # x
     data_h = torch.load("rnn_data/h13936550")  # h
+    data_xh0 = torch.concatenate((data_x, data_h), dim=-1)
     # 去掉最后一个时间步
     data_h = data_h[:, :-1, :]
     # 创建一个全为0的新时间步，形状为 (B, 1, 50)
@@ -431,11 +432,10 @@ def train_pde_find_rnn(args):
     data_h = torch.cat([new_initial_step, data_h], dim=1)
     data_h0 = torch.empty((13936, 5, 50)).zero_()
     data_xh = torch.concatenate((data_x, data_h), dim=-1)
-    data_xh0 = torch.concatenate((data_x, data_h0), dim=-1)
     hidden_images = data_xh.unsqueeze(dim=1)
-    hidden_images = hidden_images[-101:-1, :, :, :]  # 否则数据量太大，服务器和电脑直接卡死
+    hidden_images = hidden_images[-11:-1, :, :, :]  # 否则数据量太大，服务器和电脑直接卡死
     real_input = data_xh0.unsqueeze(dim=1)
-    real_input = real_input[-101:-1, :, :, :]
+    real_input = real_input[-11:-1, :, :, :]
     sample_size, time_steps, x_steps, y_steps = hidden_images.size()
     print("Hidden Images Shape:", hidden_images.shape)
 
