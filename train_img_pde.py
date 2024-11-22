@@ -421,13 +421,39 @@ def train_pde_find_rnn(args):
     net.eval()
 
     # 读取x,dx,h,dh数据
-    data_x = torch.load("rnn_data/x1393657").to(device)  # x
-    data_h = torch.load("rnn_data/h13936550").to(device)  # h
+    data_x = torch.load("rnn_data/x1393657")  # x
+    data_h = torch.load("rnn_data/h13936550")  # h
+    data_h0 = torch.empty((13936, 5, 50)).zero_()
     data_xh = torch.concatenate((data_x, data_h), dim=-1)
+    data_xh0 = torch.concatenate((data_x, data_h0), dim=-1)
     hidden_images = data_xh.unsqueeze(dim=1)
     hidden_images = hidden_images[0:10, :, :, :]  # 否则数据量太大，服务器和电脑直接卡死
+    real_input = data_xh0.unsqueeze(dim=1)
+    real_input = real_input[0:10, :, :, :]
     sample_size, time_steps, x_steps, y_steps = hidden_images.size()
     print("Hidden Images Shape:", hidden_images.shape)
+
+    def extract_real():
+        _, real_U = build_image_pde_data(
+            real_input,
+            x_range=(-1, 1),
+            y_range=(-1, 1),
+            t_range=(0, 1),
+            add_dx=True,
+            add_dy=True
+        )
+        real_U = real_U.reshape(sample_size, time_steps, x_steps, y_steps).to(device)
+        img_real = build_image_from_pde_data(real_U, sample_size, time_steps, x_steps, y_steps)
+        show_img(
+            img_real[0], 1, 1,
+            f"Real U Hidden",
+            save_path=os.path.join(
+                args.out_dir,
+                f"real_hidden.pdf"
+            )
+        )
+
+    extract_real()
 
     # Build the dataset
     # input_data.shape=(n_samples, flat_size, (3+add_dx+add_dy))
@@ -499,15 +525,6 @@ def train_pde_find_rnn(args):
                     save_path=os.path.join(
                         args.out_dir,
                         f"pred_hidden.pdf"
-                    )
-                )
-                img_real = build_image_from_pde_data(U, sample_size, time_steps, x_steps, y_steps)
-                show_img(
-                    img_real[0], 1, 1,
-                    f"Real U Hidden",
-                    save_path=os.path.join(
-                        args.out_dir,
-                        f"real_hidden.pdf"
                     )
                 )
 
