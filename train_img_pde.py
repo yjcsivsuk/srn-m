@@ -420,16 +420,22 @@ def train_pde_find_rnn(args):
     )
     net.eval()
 
-    # 读取x,dx,h,dh数据
+    # 读取x,h数据
     data_x = torch.load("rnn_data/x1393657")  # x
     data_h = torch.load("rnn_data/h13936550")  # h
+    # 去掉最后一个时间步
+    data_h = data_h[:, :-1, :]
+    # 创建一个全为0的新时间步，形状为 (B, 1, 50)
+    new_initial_step = torch.zeros((13936, 1, 50))
+    # 在维度1（时间步维度）上拼接新的初始时间步和原来去掉最后一步后的张量
+    data_h = torch.cat([new_initial_step, data_h], dim=1)
     data_h0 = torch.empty((13936, 5, 50)).zero_()
     data_xh = torch.concatenate((data_x, data_h), dim=-1)
     data_xh0 = torch.concatenate((data_x, data_h0), dim=-1)
     hidden_images = data_xh.unsqueeze(dim=1)
-    hidden_images = hidden_images[0:10, :, :, :]  # 否则数据量太大，服务器和电脑直接卡死
+    hidden_images = hidden_images[-101:-1, :, :, :]  # 否则数据量太大，服务器和电脑直接卡死
     real_input = data_xh0.unsqueeze(dim=1)
-    real_input = real_input[0:10, :, :, :]
+    real_input = real_input[-101:-1, :, :, :]
     sample_size, time_steps, x_steps, y_steps = hidden_images.size()
     print("Hidden Images Shape:", hidden_images.shape)
 
@@ -942,7 +948,7 @@ if __name__ == "__main__":
     parser.add_argument("--optim", type=str, default="Adam", choices=["Adam", "LBFGS", "AdamW"])
 
     # EQL PDE Find
-    parser.add_argument("--pde_find", type=boolean_str, default="True")
+    parser.add_argument("--pde_find", type=boolean_str, default="False")
     parser.add_argument("--with_fu", type=boolean_str, default="False")
     parser.add_argument("--pd_weight", type=float, default=1.0)
     parser.add_argument("--pde_weight", type=float, default=1.0)
@@ -959,7 +965,7 @@ if __name__ == "__main__":
     parser.add_argument("--pde_find_with_kan_without_sobel", type=boolean_str, default="False")
     parser.add_argument("--pde_find_with_kan", type=boolean_str, default="False")
     parser.add_argument("--pde_find_only_with_kan", type=boolean_str, default="False")
-    parser.add_argument("--pde_find_rnn", type=boolean_str, default="False")
+    parser.add_argument("--pde_find_rnn", type=boolean_str, default="True")
     parser.add_argument("--img_pde_find_with_kan", type=boolean_str, default="False")
     parser.add_argument("--layers_hidden", type=list, default=[3, 3, 1])
     parser.add_argument("--grid_size", type=int, default=5)
